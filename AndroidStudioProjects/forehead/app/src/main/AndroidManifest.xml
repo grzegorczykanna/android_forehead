@@ -14,12 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
-        <activity android:name=".SongActivity"></activity>
-        <activity android:name=".FailActivity"></activity>
-        <activity android:name=".PassActivity"></activity>
-        <activity android:name=".SensorActivity"></activity>
+        <activity android:name="com.example.foreahead.SongActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name="com.example.foreahead.FailActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name="com.example.foreahead.PassActivity"
+            android:screenOrientation="landscape"></activity>
         <activity
-            android:name=".TitleActivity"
+            android:name="com.example.foreahead.TitleActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

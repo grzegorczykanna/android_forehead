@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.foreahead;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,20 +12,22 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.view.MotionEvent;
 
+import com.example.myapplication.R;
+
 public class SongActivity extends Activity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor magnetometer;
     private float[] lastMagnetometerValues = new float[3];
     private boolean isActivityOpen = false; // To prevent opening the activity multiple times
 
-    LinearLayout mLinearLayoutMain;
+    LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.song_main);
 
-        mLinearLayoutMain = (LinearLayout) findViewById(R.id.linear_layout);
-        mLinearLayoutMain.setOnTouchListener(new View.OnTouchListener() {
+        linearLayout = (LinearLayout) findViewById(R.id.linear_layout);
+        linearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {openFailActivity();
                 return false;}
