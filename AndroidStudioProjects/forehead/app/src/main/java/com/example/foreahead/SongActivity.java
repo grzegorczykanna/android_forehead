@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SongActivity extends Activity implements SensorEventListener {
+
+    private View decorView;
     // to use magnetometer to detect rotation of the device
     private SensorManager sensorManager;
     private Sensor magnetometer;
@@ -42,6 +44,14 @@ public class SongActivity extends Activity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.song_main);
 
+        decorView = getWindow().getDecorView();
+        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                if (visibility == 0)
+                    decorView.setSystemUiVisibility(hideSystemBars());
+            }
+
         // get and increment counter
         actualizeSongCounter(songCounter);
         // load songs list
@@ -55,7 +65,24 @@ public class SongActivity extends Activity implements SensorEventListener {
         // open FAIL after 30 seconds
         openFailIfTimesUp();
     }
+                                                        
+    
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            decorView.setSystemUiVisibility(hideSystemBars());
+        }
+    }
 
+    private int hideSystemBars() {
+        return View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+    }
 
     // FAIL on touch
     @Override
