@@ -20,8 +20,9 @@
             android:screenOrientation="landscape"></activity>
         <activity android:name="com.example.foreahead.PassActivity"
             android:screenOrientation="landscape"></activity>
-        <activity
-            android:name="com.example.foreahead.TitleActivity"
+        <activity android:name="com.example.foreahead.TitleActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name="com.example.foreahead.IntroActivity"
             android:screenOrientation="landscape"
             android:exported="true">
             <intent-filter>

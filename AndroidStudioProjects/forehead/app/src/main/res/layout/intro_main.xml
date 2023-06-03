@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:rotationX="0"
+    android:background="@drawable/intro_background"
     tools:context="com.example.foreahead.TitleActivity">
 
     <ImageView

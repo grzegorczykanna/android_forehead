@@ -4,23 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/song_background"
     tools:context="com.example.foreahead.SongActivity">
-
-    <TextView
-        android:id="@+id/songTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mogło być nic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/bandTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kwiat Jabłoni"
+        android:fontFamily="@font/neris_black"
+        android:text="KWIAT JABŁONI"
+        android:textColor="@color/black"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
@@ -32,7 +26,10 @@
         android:id="@+id/timerTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/neris_black"
         android:text="30 s"
+        android:textColor="@color/black"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -50,6 +47,15 @@
         android:paddingRight="16dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="136dp">
+
+        <TextView
+            android:id="@+id/songTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/neris_black"
+            android:text="MOGŁO BYĆ NIC"
+            android:textColor="@color/black"
+            android:textSize="80dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

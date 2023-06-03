@@ -16,9 +16,7 @@ public class PassActivity extends AppCompatActivity {
 
         new Handler().postDelayed(new Runnable() {
             @Override
-            public void run() {
-                openSongActivity();
-            }
+            public void run() {openSongActivity();}
         }, DELAY_TIME_MS);
     }
 
