@@ -25,7 +25,7 @@ public class FailActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // check number of song, go to the results after finish
-                if(songCounter == (songsNumber-1)) {
+                if(songCounter == (songsNumber)) {
                     openResultActivity();
                 } else{ openSongActivity(); }
             }

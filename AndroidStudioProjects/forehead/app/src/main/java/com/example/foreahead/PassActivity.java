@@ -22,7 +22,7 @@ public class PassActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(songCounter == (songsNumber-1)) {
+                if(songCounter == (songsNumber)) {
                     openResultActivity();
                 } else{ openSongActivity(); }
             }
