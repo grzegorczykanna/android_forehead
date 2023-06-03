@@ -30,54 +30,42 @@ public class SongActivity extends Activity implements SensorEventListener {
     // to count down 30 seconds (time for each song)
     private CountDownTimer countDownTimer;
     private TextView timerTV;
+    private int roundTime = 6000; // ms
+
+    // handle the songs list
+    private int songCounter, songsNumber = 5;
+    private List<List<String>> songsList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.song_main);
 
-        // get number of song
-        int songCounter = HelperActivity.getCounter();
+        // get and increment counter
+        actualizeSongCounter(songCounter);
+        // load songs list
+        songsList = createSongsList(songsNumber);
+        // display each element of songs list
+        displaySongToGuess();
+        // open PASS if rotated phone
+        openPassIfGuessed();
+        // open FAIL on touch or ...
+        openFailIfNotGuessed();
+        // open FAIL after 30 seconds
+        openFailIfTimesUp();
+    }
 
-        // increment song counter
-        HelperActivity.setCounter(songCounter + 1);
 
-        // code to set chosen songs list
-        // Create an empty list of lists of strings
-        List<List<String>> songsList = new ArrayList<>();
-        songsList.add(new ArrayList<>());
-        songsList.add(new ArrayList<>());
-        songsList.add(new ArrayList<>());
-        songsList.add(new ArrayList<>());
-        songsList.add(new ArrayList<>());
+    // FAIL on touch
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // function to detect screen touch for going to FAIL activity
+        cancelOpenNewActivity = true;
+        return super.onTouchEvent(event);
+    }
 
-        // Add elements to the list, songs and bands names
-        songsList.get(0).add("song1");
-        songsList.get(0).add("author1");
-        songsList.get(1).add("song2");
-        songsList.get(1).add("author2");
-        songsList.get(2).add("song3");
-        songsList.get(2).add("author3");
-        songsList.get(3).add("song4");
-        songsList.get(3).add("author4");
-        songsList.get(4).add("song5");
-        songsList.get(4).add("author5");
-
-        // Get the next element of songs list
-        String songToGuess = songsList.get(songCounter).get(0);
-        String bandToGuess = songsList.get(songCounter).get(1);
-
-        // display song and band name in text views
-        TextView songTextView = findViewById(R.id.songTV);
-        TextView bandTextView = findViewById(R.id.bandTV);
-        songTextView.setText(songToGuess);
-        bandTextView.setText(bandToGuess);
-
-        // open PASS if rotate phone
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-
-        // open FAIL activity on touch
+    public void openFailIfNotGuessed(){
         linearL = (LinearLayout) findViewById(R.id.linear_layout);
         linearL.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,9 +75,23 @@ public class SongActivity extends Activity implements SensorEventListener {
                 openFailActivity();
             }
         });
+    }
+
+    // FAIL after 30 seconds
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Cancel the countdown timer to prevent memory leaks
+        // helper for counter
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+    }
+
+    public void openFailIfTimesUp(){
         // set the countdown timer
         timerTV = findViewById(R.id.timerTV);
-        countDownTimer = new CountDownTimer(6000, 100) {
+        countDownTimer = new CountDownTimer(roundTime, 100) {
             // counter is ticking, display every second on tick
             @Override
             public void onTick(long millisUntilFinished) {
@@ -106,28 +108,8 @@ public class SongActivity extends Activity implements SensorEventListener {
             }
         };
 
-        // open FAIL after 30 seconds if screen touch not detected earlier
+        // start the counter, open FAIL after 30 seconds if screen touch not detected earlier
         countDownTimer.start();
-    }
-
-
-    // FAIL on touch
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        // function to detect screen touch for going to FAIL activity
-        cancelOpenNewActivity = true;
-        return super.onTouchEvent(event);
-    }
-
-    // FAIL after 30 seconds
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // Cancel the countdown timer to prevent memory leaks
-        // helper for counter
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
     }
 
     // PASS after rotate the device
@@ -164,11 +146,16 @@ public class SongActivity extends Activity implements SensorEventListener {
         }
     }
 
-
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Do nothing
     }
+
+    public void openPassIfGuessed(){
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+    }
+
     // go to desired activities
     private void openPassActivity() {
         if (!isActivityOpen) {
@@ -183,8 +170,49 @@ public class SongActivity extends Activity implements SensorEventListener {
         startActivity(intent);
     }
 
-    public void openResultActivity(){
-        Intent intent = new Intent(this, ResultActivity.class);
-        startActivity(intent);
+    // handle song element
+    public void actualizeSongCounter(int counter){
+        // get number of song
+        songCounter = HelperActivity.getCounter();
+        // increment song counter
+        HelperActivity.setCounter(songCounter + 1);
+    }
+
+    public List<List<String>> createSongsList(int songsNumber){
+
+        // code to set chosen songs list
+        // Create an empty list of lists of strings
+        List<List<String>> songsList = new ArrayList<>();
+        songsList.add(new ArrayList<>());
+        songsList.add(new ArrayList<>());
+        songsList.add(new ArrayList<>());
+        songsList.add(new ArrayList<>());
+        songsList.add(new ArrayList<>());
+
+        // Add elements to the list, songs and bands names
+        songsList.get(0).add("song1");
+        songsList.get(0).add("author1");
+        songsList.get(1).add("song2");
+        songsList.get(1).add("author2");
+        songsList.get(2).add("song3");
+        songsList.get(2).add("author3");
+        songsList.get(3).add("song4");
+        songsList.get(3).add("author4");
+        songsList.get(4).add("song5");
+        songsList.get(4).add("author5");
+
+        return songsList;
+    }
+
+    public void displaySongToGuess(){
+        // Get the next element of songs list
+        String songToGuess = songsList.get(songCounter).get(0);
+        String bandToGuess = songsList.get(songCounter).get(1);
+
+        // display song and band name in text views
+        TextView songTextView = findViewById(R.id.songTV);
+        TextView bandTextView = findViewById(R.id.bandTV);
+        songTextView.setText(songToGuess);
+        bandTextView.setText(bandToGuess);
     }
 }
