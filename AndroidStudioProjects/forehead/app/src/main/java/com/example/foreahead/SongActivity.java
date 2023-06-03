@@ -16,6 +16,7 @@ import android.os.CountDownTimer;
 import android.widget.TextView;
 
 public class SongActivity extends Activity implements SensorEventListener {
+    private View decorView;
     private SensorManager sensorManager;
     private Sensor magnetometer;
     private float[] lastMagnetometerValues = new float[3];
@@ -31,6 +32,15 @@ public class SongActivity extends Activity implements SensorEventListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.song_main);
+
+        decorView = getWindow().getDecorView();
+        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                if (visibility == 0)
+                    decorView.setSystemUiVisibility(hideSystemBars());
+            }
+        });
 
         // open FAIL on touch or after 30 secs
         linearLayout = (LinearLayout) findViewById(R.id.linear_layout);
@@ -68,6 +78,23 @@ public class SongActivity extends Activity implements SensorEventListener {
         // FAIL if rotate phone
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            decorView.setSystemUiVisibility(hideSystemBars());
+        }
+    }
+
+    private int hideSystemBars() {
+        return View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
     }
 
     @Override

@@ -4,8 +4,8 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
-
     <style name="Theme.MyApplication" parent="Base.Theme.MyApplication">
+        <item name="android:windowFullscreen">true</item>
         <item name="android:fontFamily">@font/neris_black</item>
         </style>
 </resources>
