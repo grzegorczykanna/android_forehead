@@ -17,6 +17,8 @@
 
         <activity android:name="com.example.foreahead.SongActivity"
             android:screenOrientation="landscape"></activity>
+        <activity android:name="com.example.foreahead.ResultActivity"
+            android:screenOrientation="landscape"></activity>
         <activity android:name="com.example.foreahead.FailActivity"
             android:screenOrientation="landscape"></activity>
         <activity android:name="com.example.foreahead.PassActivity"

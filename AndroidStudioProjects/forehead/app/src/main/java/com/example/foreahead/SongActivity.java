@@ -14,19 +14,24 @@ import android.view.MotionEvent;
 import com.example.myapplication.R;
 import android.os.CountDownTimer;
 import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SongActivity extends Activity implements SensorEventListener {
+
     private View decorView;
+    // to use magnetometer to detect rotation of the device
     private SensorManager sensorManager;
     private Sensor magnetometer;
-    private float[] lastMagnetometerValues = new float[3];
-    private boolean isActivityOpen = false; // To prevent opening the activity multiple times
+    private boolean isActivityOpen = false;
 
-    LinearLayout linearLayout;
+    // to detect screen touch
+    LinearLayout linearL;
+    private boolean cancelOpenNewActivity = false;
 
-    private boolean touchDetected = false;
+    // to count down 30 seconds (time for each song)
     private CountDownTimer countDownTimer;
-    private TextView countdownTextView;
+    private TextView timerTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,44 +47,82 @@ public class SongActivity extends Activity implements SensorEventListener {
             }
         });
 
-        // open FAIL on touch or after 30 secs
-        linearLayout = (LinearLayout) findViewById(R.id.linear_layout);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        // get number of song
+        int songCounter = HelperActivity.getCounter();
+
+        // increment song counter
+        HelperActivity.setCounter(songCounter + 1);
+
+        // code to set chosen songs list
+        // Create an empty list of lists of strings
+        List<List<String>> songsList = new ArrayList<>();
+        songsList.add(new ArrayList<>());
+        songsList.add(new ArrayList<>());
+        songsList.add(new ArrayList<>());
+        songsList.add(new ArrayList<>());
+        songsList.add(new ArrayList<>());
+
+        // Add elements to the list, songs and bands names
+        songsList.get(0).add("song1");
+        songsList.get(0).add("author1");
+        songsList.get(1).add("song2");
+        songsList.get(1).add("author2");
+        songsList.get(2).add("song3");
+        songsList.get(2).add("author3");
+        songsList.get(3).add("song4");
+        songsList.get(3).add("author4");
+        songsList.get(4).add("song5");
+        songsList.get(4).add("author5");
+
+        // Get the next element of songs list
+        String songToGuess = songsList.get(songCounter).get(0);
+        String bandToGuess = songsList.get(songCounter).get(1);
+
+        // display song and band name in text views
+        TextView songTextView = findViewById(R.id.songTV);
+        TextView bandTextView = findViewById(R.id.bandTV);
+        songTextView.setText(songToGuess);
+        bandTextView.setText(bandToGuess);
+
+        // open PASS if rotate phone
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+        // open FAIL activity on touch
+        linearL = (LinearLayout) findViewById(R.id.linear_layout);
+        linearL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Set the touchDetected flag to true
-                touchDetected = true;
+                // Set the cancelOpenNewActivity flag to true when screen touch is detected
+                cancelOpenNewActivity = true;
                 openFailActivity();
             }
         });
-
-        // Start the countdown timer
-        countdownTextView = findViewById(R.id.timerTV);
+        // set the countdown timer
+        timerTV = findViewById(R.id.timerTV);
         countDownTimer = new CountDownTimer(6000, 100) {
+            // counter is ticking, display every second on tick
             @Override
             public void onTick(long millisUntilFinished) {
-                countdownTextView.setText("Time remaining: " + millisUntilFinished / 1000 + " seconds");
-                // Countdown is ticking, do nothing
+                timerTV.setText(millisUntilFinished / 1000 + " seconds");
             }
-
+            // open FAIL after 30 seconds
             @Override
             public void onFinish() {
                 // Timer has finished, open the new activity
-                if (!touchDetected) {
+                if (!cancelOpenNewActivity) {
                     // Open the new activity only if touch was not detected
                     openFailActivity();
                 }
             }
         };
+
+        // open FAIL after 30 seconds if screen touch not detected earlier
         countDownTimer.start();
-
-        //
-
-        // FAIL if rotate phone
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
 
+
+    // FAIL on touch
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -99,19 +142,23 @@ public class SongActivity extends Activity implements SensorEventListener {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        touchDetected = true;
+        // function to detect screen touch for going to FAIL activity
+        cancelOpenNewActivity = true;
         return super.onTouchEvent(event);
     }
 
+    // FAIL after 30 seconds
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // Cancel the countdown timer to prevent memory leaks
+        // helper for counter
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
     }
 
+    // PASS after rotate the device
     @Override
     protected void onResume() {
         super.onResume();
@@ -126,29 +173,31 @@ public class SongActivity extends Activity implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        // function to go to PASS activity if the phone is rotated
+        // works with device, does not work with emulator (other axis)
+        // onResume() and onPause()  and onAccuracyChanged() are also needed
         if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             float[] currentMagnetometerValues = event.values;
 
-            // Compare the current values with the last recorded values
-            if (lastMagnetometerValues != null && currentMagnetometerValues != null) {
-                float deltaX = currentMagnetometerValues[0];
+            if (currentMagnetometerValues != null) {
+                float deltaZ = currentMagnetometerValues[2];
 
-                float threshold = 45;
+                float threshold = -35;
                 // Check if the change in magnetometer values is significant
-                if (deltaX > threshold) {
+              /*  if (deltaZ > Math.abs(threshold) || deltaZ < threshold) {
+                    cancelOpenNewActivity = true;
                     openPassActivity();
-                }
+                }*/
             }
-
-            lastMagnetometerValues = currentMagnetometerValues.clone();
         }
     }
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Do nothing
     }
-
+    // go to desired activities
     private void openPassActivity() {
         if (!isActivityOpen) {
             isActivityOpen = true;
@@ -156,9 +205,14 @@ public class SongActivity extends Activity implements SensorEventListener {
             startActivity(intent);
         }
     }
+
     public void openFailActivity(){
         Intent intent = new Intent(this, FailActivity.class);
         startActivity(intent);
     }
 
+    public void openResultActivity(){
+        Intent intent = new Intent(this, ResultActivity.class);
+        startActivity(intent);
+    }
 }
