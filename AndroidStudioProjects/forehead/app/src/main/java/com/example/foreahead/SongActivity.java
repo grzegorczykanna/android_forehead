@@ -1,5 +1,6 @@
 package com.example.foreahead;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.view.MotionEvent;
 import com.example.myapplication.R;
@@ -40,6 +42,7 @@ public class SongActivity extends Activity implements SensorEventListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Hide the action bar
         setContentView(R.layout.song_main);
 
         // get and increment counter

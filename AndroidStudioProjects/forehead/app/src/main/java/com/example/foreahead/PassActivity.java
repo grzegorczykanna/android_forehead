@@ -1,10 +1,13 @@
 package com.example.foreahead;
 
 import android.os.Bundle;
+
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import android.content.Intent;
 import android.os.Handler;
+import android.view.View;
 
 public class PassActivity extends AppCompatActivity {
 
@@ -15,6 +18,16 @@ public class PassActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pass_main);
+
+        // Hide the navigation bar
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+        // Hide the action bar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
 
         int songCounter = HelperActivity.getCounter();
 
