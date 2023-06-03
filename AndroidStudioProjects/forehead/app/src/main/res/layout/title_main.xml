@@ -4,35 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:rotationX="0"
     android:background="@drawable/blue_background"
     tools:context="com.example.foreahead.TitleActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Forehead!"
-        android:textSize="80dp"
-        android:textColor="@color/black"
+    <ImageButton
+        android:id="@+id/button_start_category"
+        android:layout_width="720px"
+        android:layout_height="300px"
+        android:scaleType="fitCenter"
+        android:src="@drawable/start_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.200
-" />
+        app:layout_constraintVertical_bias="0.134" />
 
-    <Button
-        android:id="@+id/button_polish_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="POLSKIE \n KAWAŁKI"
-        android:textColor="@color/black"
-        android:textSize="25dp"
+    <ImageButton
+        android:id="@+id/button_rock_category"
+        android:layout_width="350px"
+        android:layout_height="500px"
+        android:scaleType="fitCenter"
+        android:src="@drawable/rock_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.063"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.625" />
+        app:layout_constraintVertical_bias="0.927" />
+
+    <ImageButton
+        android:id="@+id/button_disco_category"
+        android:layout_width="350px"
+        android:layout_height="500px"
+        android:layout_marginStart="40dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/disco_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_rock_category"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.927" />
+
+    <ImageButton
+        android:id="@+id/button_tv_category"
+        android:layout_width="350px"
+        android:layout_height="500px"
+        android:layout_marginStart="40dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/tv_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_disco_category"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.927" />
+
+    <ImageButton
+        android:id="@+id/button_oldtime_category"
+        android:layout_width="350px"
+        android:layout_height="500px"
+        android:scaleType="fitCenter"
+        android:src="@drawable/oldtime_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintStart_toEndOf="@+id/button_tv_category"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.927" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
