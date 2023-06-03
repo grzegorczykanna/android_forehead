@@ -4,9 +4,8 @@ import  android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.myapplication.R;
 
 public class TitleActivity extends AppCompatActivity {
@@ -27,6 +26,15 @@ public class TitleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.title_main);
 
+        // Hide the navigation bar
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+        // Hide the action bar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+      
         startButton = (ImageButton) findViewById(R.id.imageButton_start_category);
         rockButton = (ImageButton) findViewById(R.id.imageButton_rock_category);
         discoButton = (ImageButton) findViewById(R.id.imageButton_disco_category);
