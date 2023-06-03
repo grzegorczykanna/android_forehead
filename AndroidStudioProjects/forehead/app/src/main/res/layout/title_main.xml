@@ -11,7 +11,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/neris_black"
         android:text="Forehead!"
         android:textSize="80dp"
         android:textColor="@color/black"
@@ -26,7 +25,6 @@
         android:id="@+id/button_polish_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/neris_black"
         android:text="POLSKIE \n KAWAŁKI"
         android:textColor="@color/black"
         android:textSize="25dp"
