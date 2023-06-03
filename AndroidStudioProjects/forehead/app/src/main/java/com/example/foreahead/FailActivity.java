@@ -3,14 +3,20 @@ package com.example.foreahead;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FailActivity extends AppCompatActivity {
 
-    private static final int DELAY_TIME_MS = 3000; // 3 seconds
+    private TextView checkTV;
+    private static final int DELAY_TIME_MS = 1500; // 3 seconds
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -14,6 +14,8 @@ import android.view.MotionEvent;
 import com.example.myapplication.R;
 import android.os.CountDownTimer;
 import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SongActivity extends Activity implements SensorEventListener {
     private SensorManager sensorManager;
@@ -26,11 +28,58 @@ public class SongActivity extends Activity implements SensorEventListener {
     private boolean touchDetected = false;
     private CountDownTimer countDownTimer;
     private TextView countdownTextView;
+    private TextView songTextView;
+    private TextView bandTextView;
+    private int nonrandomIndex;
+    private List<Integer> randomIndicesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.song_main);
+
+        // make songs list
+        // Create an empty list of strings
+        List<List<String>> songsList = new ArrayList<>();
+        songsList.add(new ArrayList<>());
+        songsList.add(new ArrayList<>());
+        songsList.add(new ArrayList<>());
+        songsList.add(new ArrayList<>());
+        songsList.add(new ArrayList<>());
+
+        // Add elements to the list
+        songsList.get(0).add("song1");
+        songsList.get(0).add("author1");
+        songsList.get(1).add("song2");
+        songsList.get(1).add("author2");
+        songsList.get(2).add("song3");
+        songsList.get(2).add("author3");
+        songsList.get(3).add("song4");
+        songsList.get(3).add("author4");
+        songsList.get(4).add("song5");
+        songsList.get(4).add("author5");
+
+        randomIndicesList = GlobalActivity.getMyList();
+
+        if(randomIndicesList.size() < 5){
+            nonrandomIndex = randomIndicesList.size();
+        } else {
+            openResultActivity();
+        }
+
+        randomIndicesList.add(nonrandomIndex);
+
+        // Get the random element
+        String randomSong = songsList.get(nonrandomIndex).get(0);
+        String randomBand = songsList.get(nonrandomIndex).get(1);
+
+        songTextView = findViewById(R.id.songTV);
+        bandTextView = findViewById(R.id.bandTV);
+
+        // Access elements in the list
+        songTextView.setText(randomSong);
+        // Access elements in the list
+        bandTextView.setText(randomBand);
 
         // open FAIL on touch or after 30 secs
         linearLayout = (LinearLayout) findViewById(R.id.linear_layout);
@@ -48,7 +97,7 @@ public class SongActivity extends Activity implements SensorEventListener {
         countDownTimer = new CountDownTimer(6000, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
-                countdownTextView.setText("Time remaining: " + millisUntilFinished / 1000 + " seconds");
+                countdownTextView.setText(millisUntilFinished / 1000 + " seconds");
                 // Countdown is ticking, do nothing
             }
 
@@ -63,65 +112,64 @@ public class SongActivity extends Activity implements SensorEventListener {
         };
         countDownTimer.start();
 
-        //
-
         // FAIL if rotate phone
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
 
+    // FAIL on touch
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        // function to detect screen touch for going to FAIL activity
         touchDetected = true;
         return super.onTouchEvent(event);
     }
-
+    // FAIL after 30 seconds
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // Cancel the countdown timer to prevent memory leaks
+        // helper for counter
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
     }
-
+    // PASS after rotate the device
     @Override
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
-
     @Override
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
     }
-
     @Override
     public void onSensorChanged(SensorEvent event) {
+        // function to go to PASS activity if the phone is rotated
+        // works with device, does not work with emulator (other axis)
+        // onResume() and onPause()  and onAccuracyChanged() are also needed
         if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             float[] currentMagnetometerValues = event.values;
 
-            // Compare the current values with the last recorded values
-            if (lastMagnetometerValues != null && currentMagnetometerValues != null) {
-                float deltaX = currentMagnetometerValues[0];
+            if (currentMagnetometerValues != null) {
+                float deltaZ = currentMagnetometerValues[2];
 
-                float threshold = 45;
+                float threshold = -35;
                 // Check if the change in magnetometer values is significant
-                if (deltaX > threshold) {
+                /*if (deltaZ > Math.abs(threshold) || deltaZ < threshold) {
+                    touchDetected = true;
                     openPassActivity();
-                }
+                }*/
             }
-
-            lastMagnetometerValues = currentMagnetometerValues.clone();
         }
     }
-
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Do nothing
     }
-
+    // go to desired activity
     private void openPassActivity() {
         if (!isActivityOpen) {
             isActivityOpen = true;
@@ -133,5 +181,8 @@ public class SongActivity extends Activity implements SensorEventListener {
         Intent intent = new Intent(this, FailActivity.class);
         startActivity(intent);
     }
-
+    public void openResultActivity(){
+        Intent intent = new Intent(this, ResultActivity.class);
+        startActivity(intent);
+    }
 }
