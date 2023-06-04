@@ -53,7 +53,23 @@ public class SongActivity extends Activity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         // Hide the action bar
         setContentView(R.layout.song_main);
+        hideBars();
 
+        // get and increment counter
+        actualizeSongCounter(songCounter);
+        // load songs list
+        //songsList = createSongsList(songsNumber);
+        // display each element of songs list
+        //displaySongToGuess();
+        // open PASS if rotated phone
+        openPassIfGuessed();
+        // open FAIL on touch or ...
+        openFailIfNotGuessed();
+        // open FAIL after 30 seconds
+        openFailIfTimesUp();
+    }
+
+    public void hideBars(){
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
@@ -62,22 +78,8 @@ public class SongActivity extends Activity implements SensorEventListener {
                     decorView.setSystemUiVisibility(hideSystemBars());
             }
         });
-
-        // get and increment counter
-        actualizeSongCounter(songCounter);
-        // load songs list
-        songsList = createSongsList(songsNumber);
-        // display each element of songs list
-        displaySongToGuess();
-        // open PASS if rotated phone
-        openPassIfGuessed();
-        // open FAIL on touch or ...
-        openFailIfNotGuessed();
-        // open FAIL after 30 seconds
-        openFailIfTimesUp();
     }
-                                                        
-    
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -216,7 +218,7 @@ public class SongActivity extends Activity implements SensorEventListener {
         HelperActivity.setCounter(songCounter + 1);
     }
 
-    public List<ListItemActivity> createSongsList(int songsNumber){
+    /*public List<ListItemActivity> createSongsList(int songsNumber){
 
         List<ListItemActivity> songsList = new ArrayList<>();
 
@@ -244,7 +246,7 @@ public class SongActivity extends Activity implements SensorEventListener {
 
         //return list with songs titles and bands names;
         return songsList;
-    }
+    }*/
 
     public void displaySongToGuess(){
 

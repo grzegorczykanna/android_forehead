@@ -19,22 +19,7 @@ public class FailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fail_main);
-
-        decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int visibility) {
-                if (visibility == 0)
-                    decorView.setSystemUiVisibility(hideSystemBars());
-            }
-        });
-
-        // Hide the action bar
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-
+        hideBars();
 
         int songCounter = HelperActivity.getCounter();
 
@@ -48,6 +33,17 @@ public class FailActivity extends AppCompatActivity {
                 } else{ openSongActivity(); }
             }
         }, DELAY_TIME_MS);
+    }
+
+    public void hideBars(){
+        decorView = getWindow().getDecorView();
+        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                if (visibility == 0)
+                    decorView.setSystemUiVisibility(hideSystemBars());
+            }
+        });
     }
 
     @Override

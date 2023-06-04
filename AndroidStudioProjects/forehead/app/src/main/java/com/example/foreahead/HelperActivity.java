@@ -22,6 +22,5 @@ public class HelperActivity {
     public static void setCounter(int counter) {
         songCounter = counter;
     }
-
 }
 

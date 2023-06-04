@@ -45,7 +45,7 @@ public class TitleActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSongActivity();
+                openWaitingRoomActivity();
             }
         });
         rockButton.setOnClickListener(new View.OnClickListener() {
@@ -134,8 +134,8 @@ public class TitleActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
     }
-    public void openSongActivity(){
-        Intent intent = new Intent(this, SongActivity.class);
+    public void openWaitingRoomActivity(){
+        Intent intent = new Intent(this, WaitingRoomActivity.class);
         startActivity(intent);
     }
 }
