@@ -9,6 +9,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -16,6 +17,13 @@ import android.view.MotionEvent;
 import com.example.myapplication.R;
 import android.os.CountDownTimer;
 import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +45,7 @@ public class SongActivity extends Activity implements SensorEventListener {
 
     // handle the songs list
     private int songCounter, songsNumber = 5;
-    private List<List<String>> songsList;
+    private List<ListItemActivity> songsList;
     private View decorView;
 
     @Override
@@ -208,36 +216,43 @@ public class SongActivity extends Activity implements SensorEventListener {
         HelperActivity.setCounter(songCounter + 1);
     }
 
-    public List<List<String>> createSongsList(int songsNumber){
+    public List<ListItemActivity> createSongsList(int songsNumber){
 
-        // code to set chosen songs list
-        // Create an empty list of lists of strings
-        List<List<String>> songsList = new ArrayList<>();
-        songsList.add(new ArrayList<>());
-        songsList.add(new ArrayList<>());
-        songsList.add(new ArrayList<>());
-        songsList.add(new ArrayList<>());
-        songsList.add(new ArrayList<>());
+        List<ListItemActivity> songsList = new ArrayList<>();
 
-        // Add elements to the list, songs and bands names
-        songsList.get(0).add("song1");
-        songsList.get(0).add("author1");
-        songsList.get(1).add("song2");
-        songsList.get(1).add("author2");
-        songsList.get(2).add("song3");
-        songsList.get(2).add("author3");
-        songsList.get(3).add("song4");
-        songsList.get(3).add("author4");
-        songsList.get(4).add("song5");
-        songsList.get(4).add("author5");
+        try {
+            // read the file with songs
+            InputStream inputStream = getResources().openRawResource(R.raw.songs);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] columns = line.split("\t"); // Split the line by tabs to get individual values
+                if (columns.length == 2) {
+                    ListItemActivity songBandItem = new ListItemActivity(columns[0], columns[1]); // [0] title, [1] band
+                    songsList.add(songBandItem);
+                }
+            }
+
+            bufferedReader.close();
+            inputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //return list with songs titles and bands names;
         return songsList;
     }
 
     public void displaySongToGuess(){
-        // Get the next element of songs list
-        String songToGuess = songsList.get(songCounter).get(0);
-        String bandToGuess = songsList.get(songCounter).get(1);
+
+        // Get the next item of songs list
+        ListItemActivity songBandItem = songsList.get(songCounter);
+        // Get song and band separately
+        String songToGuess = songBandItem.getColumn1();
+        String bandToGuess = songBandItem.getColumn2();
 
         // display song and band name in text views
         TextView songTextView = findViewById(R.id.songTV);
