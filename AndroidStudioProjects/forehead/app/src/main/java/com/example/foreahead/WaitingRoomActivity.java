@@ -3,6 +3,7 @@ package com.example.foreahead;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,8 +16,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class WaitingRoomActivity extends AppCompatActivity {
     private static final long COUNTDOWN_TIME = 4000; // 3 seconds
@@ -26,35 +29,43 @@ public class WaitingRoomActivity extends AppCompatActivity {
     private View decorView;
     private int songsNumber = 5;
     private List<ListItemActivity> songsList;
-    private List<Integer> randomSongs = new ArrayList<>();
+    private Set<Integer> randomIndices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.waitingroom_main);
         hideBars();
-        chooseRandomTitles(songsNumber);
+        randomIndices = chooseRandomIndices(songsNumber);
         songsList = createSongsList(songsNumber);
+        songsList = chooseRandomSongs(songsList, randomIndices);
+        Log.d(String.valueOf(randomIndices.size()), "random num");
+        Log.d(String.valueOf(songsList.size()), "random song");
+        for (Integer item : randomIndices) {
+            Log.d("ind", String.valueOf(item));
+        }
+        for (ListItemActivity item : songsList) {
+            Log.d("ind", String.valueOf(item));
+        }
         HelperActivity.setSongsList(songsList);
         openSongIfTimesUp();
     }
 
-    public List<Integer> chooseRandomTitles(int songsNumber){
-        int min = 0;  // Minimum value of the range
-        int max = 10;  // number of elements in first column in file
-        int count = songsNumber;  // Number of random numbers to generate
+    public Set<Integer> chooseRandomIndices(int songsNumber){
 
-        List<Integer> randomNumbers = new ArrayList<>();
-
+        Set<Integer> randomIndices = new HashSet<>();
         Random random = new Random();
 
-        for (int i = 0; i < count; i++) {
-            int randomNumber = random.nextInt(max - min + 1) + min;
-            randomNumbers.add(randomNumber);
-        }
-        return randomSongs;
-    }
+        int min = 0;  // Minimum value of the range
+        int max = 9;  // number of elements in first column in file
+        int count = songsNumber;  // Number of random numbers to generate
 
+        while (randomIndices.size() < count) {
+            int randomNumber = random.nextInt(max - min + 1) + min;
+            randomIndices.add(randomNumber);
+        }
+        return randomIndices;
+    }
     public List<ListItemActivity> createSongsList(int songsNumber){
 
         List<ListItemActivity> songsList = new ArrayList<>();
@@ -83,6 +94,19 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
         //return list with songs titles and bands names;
         return songsList;
+    }
+    public List<ListItemActivity> chooseRandomSongs(List<ListItemActivity> songsList, Set<Integer> randomIndicesList) {
+
+        List<ListItemActivity> originalList = songsList;
+        Set<Integer> indicesList = randomIndicesList;
+        List<ListItemActivity> chosenSongsList = new ArrayList<>();
+
+        for (int index : indicesList) {
+            if (index >= 0 && index < originalList.size()) {
+                chosenSongsList.add(originalList.get(index));
+            }
+        }
+        return chosenSongsList;
     }
     public void hideBars(){
         decorView = getWindow().getDecorView();
