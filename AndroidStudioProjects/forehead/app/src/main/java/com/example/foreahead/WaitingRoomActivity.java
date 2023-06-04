@@ -38,6 +38,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
         hideBars();
         randomIndices = chooseRandomIndices(songsNumber);
         songsList = createSongsList(songsNumber);
+        Log.d(String.valueOf(songsList.size()), "rozmiar oryg listy");
         songsList = chooseRandomSongs(songsList, randomIndices);
         Log.d(String.valueOf(randomIndices.size()), "random num");
         Log.d(String.valueOf(songsList.size()), "random song");
