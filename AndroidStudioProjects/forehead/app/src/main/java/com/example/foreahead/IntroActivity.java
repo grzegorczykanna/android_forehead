@@ -18,14 +18,14 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.intro_main);
 
       //////////////////
-        // Hide the navigation bar
+    /*    // Hide the navigation bar
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
         // Hide the action bar
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
-        }
+        }*/
       //////////////////
 
         decorView = getWindow().getDecorView();

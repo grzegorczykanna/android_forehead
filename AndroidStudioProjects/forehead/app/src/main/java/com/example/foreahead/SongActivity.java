@@ -21,7 +21,6 @@ import java.util.List;
 
 public class SongActivity extends Activity implements SensorEventListener {
 
-    private View decorView;
     // to use magnetometer to detect rotation of the device
     private SensorManager sensorManager;
     private Sensor magnetometer;
@@ -39,7 +38,7 @@ public class SongActivity extends Activity implements SensorEventListener {
     // handle the songs list
     private int songCounter, songsNumber = 5;
     private List<List<String>> songsList;
-
+    private View decorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
