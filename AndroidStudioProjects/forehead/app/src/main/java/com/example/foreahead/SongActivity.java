@@ -54,6 +54,7 @@ public class SongActivity extends Activity implements SensorEventListener {
                 if (visibility == 0)
                     decorView.setSystemUiVisibility(hideSystemBars());
             }
+        });
 
         // get and increment counter
         actualizeSongCounter(songCounter);

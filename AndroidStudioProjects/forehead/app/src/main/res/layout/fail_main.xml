@@ -7,5 +7,5 @@
     android:background="@drawable/fail_background"
     android:theme="@style/Theme.MyApplication"
     tools:context="com.example.foreahead.SongActivity">
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>
