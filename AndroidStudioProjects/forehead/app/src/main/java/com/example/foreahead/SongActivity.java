@@ -30,7 +30,7 @@ public class SongActivity extends Activity implements SensorEventListener {
     // to count down 30 seconds (time for each song)
     private CountDownTimer countDownTimer;
     private TextView timerTV;
-    private int roundTime = 6000; // ms
+    private int roundTime = 30000; // ms
 
     // handle the songs list
     private int songCounter;

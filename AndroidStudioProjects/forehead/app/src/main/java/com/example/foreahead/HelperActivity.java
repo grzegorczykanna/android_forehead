@@ -6,7 +6,7 @@ import java.util.List;
 public class HelperActivity {
     private static List<ListItemActivity> songsList = new ArrayList<>();
     private static int songCounter = 0;
-    private static int songsNumber = 10;
+    private static int songsNumber = 3;
 
     public static List<ListItemActivity> getSongsListList() {
         return songsList;
