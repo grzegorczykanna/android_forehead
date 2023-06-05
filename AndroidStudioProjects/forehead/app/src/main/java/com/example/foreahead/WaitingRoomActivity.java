@@ -3,14 +3,10 @@ package com.example.foreahead;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.myapplication.R;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +21,6 @@ public class WaitingRoomActivity extends AppCompatActivity {
     private static final long COUNTDOWN_TIME = 4000; // 3 seconds
     private static final long COUNTDOWN_INTERVAL = 1000; // 1 second
     private TextView countdownTextView;
-    private CountDownTimer countDownTimer;
     private View decorView;
     private int songsNumber = 5;
     private List<ListItemActivity> songsList;
@@ -37,17 +32,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
         setContentView(R.layout.waitingroom_main);
         hideBars();
         randomIndices = chooseRandomIndices(songsNumber);
-        songsList = createSongsList(songsNumber);
-        Log.d(String.valueOf(songsList.size()), "rozmiar oryg listy");
-        songsList = chooseRandomSongs(songsList, randomIndices);
-        Log.d(String.valueOf(randomIndices.size()), "random num");
-        Log.d(String.valueOf(songsList.size()), "random song");
-        for (Integer item : randomIndices) {
-            Log.d("ind", String.valueOf(item));
-        }
-        for (ListItemActivity item : songsList) {
-            Log.d("ind", String.valueOf(item));
-        }
+        songsList = createSongsList(randomIndices);
         HelperActivity.setSongsList(songsList);
         openSongIfTimesUp();
     }
@@ -67,8 +52,9 @@ public class WaitingRoomActivity extends AppCompatActivity {
         }
         return randomIndices;
     }
-    public List<ListItemActivity> createSongsList(int songsNumber){
+    public List<ListItemActivity> createSongsList(Set<Integer> randomIndices){
 
+        int rowCounter = 0; // needed to choose random titles
         List<ListItemActivity> songsList = new ArrayList<>();
 
         try {
@@ -77,13 +63,17 @@ public class WaitingRoomActivity extends AppCompatActivity {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
+            // read chosen titles by random indices
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                String[] columns = line.split("\t"); // Split the line by tabs to get individual values
-                if (columns.length == 2) {
-                    ListItemActivity songBandItem = new ListItemActivity(columns[0], columns[1]); // [0] title, [1] band
-                    songsList.add(songBandItem);
+                if (randomIndices.contains(rowCounter)) {
+                    String[] columns = line.split("\t"); // Split the line by tabs to get individual values
+                    if (columns.length == 2) {
+                        ListItemActivity songBandItem = new ListItemActivity(columns[0], columns[1]); // [0] title, [1] band
+                        songsList.add(songBandItem);
+                    }
                 }
+                rowCounter++; // increment the counter
             }
 
             bufferedReader.close();
@@ -95,19 +85,6 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
         //return list with songs titles and bands names;
         return songsList;
-    }
-    public List<ListItemActivity> chooseRandomSongs(List<ListItemActivity> songsList, Set<Integer> randomIndicesList) {
-
-        List<ListItemActivity> originalList = songsList;
-        Set<Integer> indicesList = randomIndicesList;
-        List<ListItemActivity> chosenSongsList = new ArrayList<>();
-
-        for (int index : indicesList) {
-            if (index >= 0 && index < originalList.size()) {
-                chosenSongsList.add(originalList.get(index));
-            }
-        }
-        return chosenSongsList;
     }
     public void hideBars(){
         decorView = getWindow().getDecorView();
@@ -122,18 +99,18 @@ public class WaitingRoomActivity extends AppCompatActivity {
     public void openSongIfTimesUp(){
         // set the countdown timer
         countdownTextView = findViewById(R.id.waitingTimerTV);
-        countDownTimer = new CountDownTimer(COUNTDOWN_TIME, COUNTDOWN_INTERVAL) {
+        CountDownTimer countDownTimer = new CountDownTimer(COUNTDOWN_TIME, COUNTDOWN_INTERVAL) {
             // counter is ticking, display every second on tick
             @Override
             public void onTick(long millisUntilFinished) {
-                countdownTextView.setText(millisUntilFinished / 1000 + " seconds");
+                countdownTextView.setText(String.valueOf(millisUntilFinished / 1000));
             }
-            // open FAIL after 30 seconds
+            // open SONG after 3 seconds
             @Override
             public void onFinish() {
                 // Timer has finished, open the new activity
                     // Open the new activity only if touch was not detected
-                    openSongActivity();
+                openSongActivity();
             }
         };
 
