@@ -1,6 +1,5 @@
 package com.example.foreahead;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,22 +8,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.view.MotionEvent;
 import com.example.myapplication.R;
 import android.os.CountDownTimer;
 import android.widget.TextView;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SongActivity extends Activity implements SensorEventListener {
@@ -41,10 +30,10 @@ public class SongActivity extends Activity implements SensorEventListener {
     // to count down 30 seconds (time for each song)
     private CountDownTimer countDownTimer;
     private TextView timerTV;
-    private int roundTime = 6000; // ms
+    private int roundTime = 30000; // ms
 
     // handle the songs list
-    private int songCounter, songsNumber = 5;
+    private int songCounter;
     private List<ListItemActivity> songsList;
     private View decorView;
 
@@ -53,20 +42,12 @@ public class SongActivity extends Activity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         // Hide the action bar
         setContentView(R.layout.song_main);
-
-        decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int visibility) {
-                if (visibility == 0)
-                    decorView.setSystemUiVisibility(hideSystemBars());
-            }
-        });
+        hideBars();
 
         // get and increment counter
         actualizeSongCounter(songCounter);
         // load songs list
-        songsList = createSongsList(songsNumber);
+        songsList = HelperActivity.getSongsListList();
         // display each element of songs list
         displaySongToGuess();
         // open PASS if rotated phone
@@ -76,8 +57,18 @@ public class SongActivity extends Activity implements SensorEventListener {
         // open FAIL after 30 seconds
         openFailIfTimesUp();
     }
-                                                        
-    
+
+    public void hideBars(){
+        decorView = getWindow().getDecorView();
+        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                if (visibility == 0)
+                    decorView.setSystemUiVisibility(hideSystemBars());
+            }
+        });
+    }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -211,39 +202,9 @@ public class SongActivity extends Activity implements SensorEventListener {
     // handle song element
     public void actualizeSongCounter(int counter){
         // get number of song
-        songCounter = HelperActivity.getCounter();
+        songCounter = HelperActivity.getSongCounter();
         // increment song counter
-        HelperActivity.setCounter(songCounter + 1);
-    }
-
-    public List<ListItemActivity> createSongsList(int songsNumber){
-
-        List<ListItemActivity> songsList = new ArrayList<>();
-
-        try {
-            // read the file with songs
-            InputStream inputStream = getResources().openRawResource(R.raw.songs);
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] columns = line.split("\t"); // Split the line by tabs to get individual values
-                if (columns.length == 2) {
-                    ListItemActivity songBandItem = new ListItemActivity(columns[0], columns[1]); // [0] title, [1] band
-                    songsList.add(songBandItem);
-                }
-            }
-
-            bufferedReader.close();
-            inputStream.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //return list with songs titles and bands names;
-        return songsList;
+        HelperActivity.setSongCounter(songCounter + 1);
     }
 
     public void displaySongToGuess(){

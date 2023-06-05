@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import androidx.appcompat.app.ActionBar;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 
@@ -12,14 +12,29 @@ public class FailActivity extends AppCompatActivity {
 
     private static final int DELAY_TIME_MS = 1500; // 1.5 seconds
     // set number of songs per round
-    private int songsNumber = 5;
     private View decorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fail_main);
+        hideBars();
 
+        int songCounter = HelperActivity.getSongCounter();
+
+        // wait 1.5 seconds and back to SONG activity
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // check number of song, go to the results after finish
+                if(songCounter == (HelperActivity.getSongsNumber())) {
+                    openResultActivity();
+                } else{ openSongActivity(); }
+            }
+        }, DELAY_TIME_MS);
+    }
+
+    public void hideBars(){
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
@@ -28,26 +43,6 @@ public class FailActivity extends AppCompatActivity {
                     decorView.setSystemUiVisibility(hideSystemBars());
             }
         });
-
-        // Hide the action bar
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-
-
-        int songCounter = HelperActivity.getCounter();
-
-        // wait 1.5 seconds and back to SONG activity
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // check number of song, go to the results after finish
-                if(songCounter == (songsNumber)) {
-                    openResultActivity();
-                } else{ openSongActivity(); }
-            }
-        }, DELAY_TIME_MS);
     }
 
     @Override
