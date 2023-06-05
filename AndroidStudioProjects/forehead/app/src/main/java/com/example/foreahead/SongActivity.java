@@ -33,7 +33,7 @@ public class SongActivity extends Activity implements SensorEventListener {
     private int roundTime = 6000; // ms
 
     // handle the songs list
-    private int songCounter, songsNumber = 5;
+    private int songCounter, songsNumber = 8;
     private List<ListItemActivity> songsList;
     private View decorView;
 

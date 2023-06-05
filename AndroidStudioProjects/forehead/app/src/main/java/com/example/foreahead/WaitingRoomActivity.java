@@ -3,6 +3,7 @@ package com.example.foreahead;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +23,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
     private static final long COUNTDOWN_INTERVAL = 1000; // 1 second
     private TextView countdownTextView;
     private View decorView;
-    private int songsNumber = 5;
+    private int songsNumber = 8;
     private List<ListItemActivity> songsList;
     private Set<Integer> randomIndices;
 
@@ -33,6 +34,8 @@ public class WaitingRoomActivity extends AppCompatActivity {
         hideBars();
         randomIndices = chooseRandomIndices(songsNumber);
         songsList = createSongsList(randomIndices);
+        Log.d(String.valueOf(randomIndices.size()), "indices");
+        Log.d(String.valueOf(songsList.size()), "songs");
         HelperActivity.setSongsList(songsList);
         openSongIfTimesUp();
     }
@@ -59,7 +62,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
         try {
             // read the file with songs
-            InputStream inputStream = getResources().openRawResource(R.raw.songs);
+            InputStream inputStream = getResources().openRawResource(R.raw.songs2);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -69,7 +72,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
                 if (randomIndices.contains(rowCounter)) {
                     String[] columns = line.split("\t"); // Split the line by tabs to get individual values
                     if (columns.length == 2) {
-                        ListItemActivity songBandItem = new ListItemActivity(columns[0], columns[1]); // [0] title, [1] band
+                        ListItemActivity songBandItem = new ListItemActivity(columns[1], columns[0]); // [0] title, [1] band
                         songsList.add(songBandItem);
                     }
                 }

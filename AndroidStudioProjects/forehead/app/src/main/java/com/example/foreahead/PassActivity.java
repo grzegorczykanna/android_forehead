@@ -12,7 +12,7 @@ import android.view.View;
 public class PassActivity extends AppCompatActivity {
 
     private static final int DELAY_TIME_MS = 1500; // 1.5 seconds
-    private int songsNumber = 5;
+    private int songsNumber = 8;
     private View decorView;
 
     @Override
