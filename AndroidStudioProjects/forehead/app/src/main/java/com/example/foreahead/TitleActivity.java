@@ -2,6 +2,8 @@ package com.example.foreahead;
 
 import  android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import androidx.appcompat.app.ActionBar;
@@ -12,6 +14,7 @@ public class TitleActivity extends AppCompatActivity {
     private View decorView;
     ImageButton startButton, rockButton, discoButton, tvButton, popButton, oldTimeButton;
     private boolean isResumeRock, isResumeDisco, isResumeTV, isResumePOP, isResumeOld;
+    //private Integer categoryCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +36,24 @@ public class TitleActivity extends AppCompatActivity {
         tvButton = (ImageButton) findViewById(R.id.imageButton_tv_category);
         popButton = (ImageButton) findViewById(R.id.imageButton_pop_category);
         oldTimeButton = (ImageButton) findViewById(R.id.imageButton_oldtime_category);
-
+        //categoryCounter = HelperActivity.getCategoryCounter();
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                openWaitingRoomActivity();
-            }
+            public void onClick(View v) { openWaitingRoomActivity(); }
         });
         rockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!isResumeRock){
                     isResumeRock = true;
+                    //HelperActivity.setIsResumeRock(isResumeRock);
+                    //HelperActivity.setCategoryCounter(categoryCounter++);
                     rockButton.setImageDrawable(getResources().getDrawable(R.drawable.on_rock_button));
                 }
                 else{
                     isResumeRock = false;
+                    //HelperActivity.setIsResumeRock(isResumeRock);
+                    //HelperActivity.setCategoryCounter(categoryCounter--);
                     rockButton.setImageDrawable(getResources().getDrawable(R.drawable.rock_button));
                 }
             }
@@ -101,10 +106,14 @@ public class TitleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!isResumePOP){
                     isResumePOP = true;
+                    //HelperActivity.setIsResumePOP(isResumePOP);
+                    //HelperActivity.setCategoryCounter(categoryCounter++);
                     popButton.setImageDrawable(getResources().getDrawable(R.drawable.on_pop_button));
                 }
                 else{
                     isResumePOP = false;
+                    //HelperActivity.setIsResumePOP(isResumePOP);
+                    //HelperActivity.setCategoryCounter(categoryCounter++);
                     popButton.setImageDrawable(getResources().getDrawable(R.drawable.pop_button));
                 }
             }

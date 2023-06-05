@@ -25,12 +25,26 @@ public class WaitingRoomActivity extends AppCompatActivity {
     private View decorView;
     private List<ListItemActivity> songsList;
     private Set<Integer> randomIndices;
+    //private Integer categoryCounter, categoryIndicesNumber;
+    //private List<ListItemActivity> allCategoriesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.waitingroom_main);
         hideBars();
+        // count categories
+        //categoryCounter = HelperActivity.getCategoryCounter();
+
+        // divide all songs number to all categories
+        //categoryIndicesNumber = HelperActivity.getSongsNumber() / categoryCounter;
+        // randomizing loop, one iteration per category
+        /*for (int i = 0; i < categoryCounter; i++)
+        {
+            randomIndices = chooseRandomIndices(HelperActivity.getSongsNumber());
+            songsList = createSongsList(randomIndices);
+            allCategoriesList.addAll(songsList);
+        }*/
         randomIndices = chooseRandomIndices(HelperActivity.getSongsNumber());
         songsList = createSongsList(randomIndices);
         Log.d(String.valueOf(randomIndices.size()), "indices");
