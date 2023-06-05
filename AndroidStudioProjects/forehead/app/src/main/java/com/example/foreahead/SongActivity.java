@@ -33,7 +33,7 @@ public class SongActivity extends Activity implements SensorEventListener {
     private int roundTime = 6000; // ms
 
     // handle the songs list
-    private int songCounter, songsNumber = 8;
+    private int songCounter;
     private List<ListItemActivity> songsList;
     private View decorView;
 
@@ -202,9 +202,9 @@ public class SongActivity extends Activity implements SensorEventListener {
     // handle song element
     public void actualizeSongCounter(int counter){
         // get number of song
-        songCounter = HelperActivity.getCounter();
+        songCounter = HelperActivity.getSongCounter();
         // increment song counter
-        HelperActivity.setCounter(songCounter + 1);
+        HelperActivity.setSongCounter(songCounter + 1);
     }
 
     public void displaySongToGuess(){

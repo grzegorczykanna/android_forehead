@@ -10,17 +10,9 @@ import com.example.myapplication.R;
 
 public class TitleActivity extends AppCompatActivity {
     private View decorView;
-    ImageButton startButton;
-    ImageButton rockButton;
-    ImageButton discoButton;
-    ImageButton tvButton;
-    ImageButton popButton;
-    ImageButton oldTimeButton;
-    private boolean isResumeRock;
-    private boolean isResumeDisco;
-    private boolean isResumeTV;
-    private boolean isResumePOP;
-    private boolean isResumeOld;
+    ImageButton startButton, rockButton, discoButton, tvButton, popButton, oldTimeButton;
+    private boolean isResumeRock, isResumeDisco, isResumeTV, isResumePOP, isResumeOld;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

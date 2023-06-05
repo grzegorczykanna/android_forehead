@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import androidx.appcompat.app.ActionBar;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 
@@ -12,7 +12,6 @@ public class FailActivity extends AppCompatActivity {
 
     private static final int DELAY_TIME_MS = 1500; // 1.5 seconds
     // set number of songs per round
-    private int songsNumber = 8;
     private View decorView;
 
     @Override
@@ -21,14 +20,14 @@ public class FailActivity extends AppCompatActivity {
         setContentView(R.layout.fail_main);
         hideBars();
 
-        int songCounter = HelperActivity.getCounter();
+        int songCounter = HelperActivity.getSongCounter();
 
         // wait 1.5 seconds and back to SONG activity
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 // check number of song, go to the results after finish
-                if(songCounter == (songsNumber)) {
+                if(songCounter == (HelperActivity.getSongsNumber())) {
                     openResultActivity();
                 } else{ openSongActivity(); }
             }

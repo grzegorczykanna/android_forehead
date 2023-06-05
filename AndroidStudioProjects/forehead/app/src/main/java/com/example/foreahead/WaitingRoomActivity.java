@@ -23,7 +23,6 @@ public class WaitingRoomActivity extends AppCompatActivity {
     private static final long COUNTDOWN_INTERVAL = 1000; // 1 second
     private TextView countdownTextView;
     private View decorView;
-    private int songsNumber = 8;
     private List<ListItemActivity> songsList;
     private Set<Integer> randomIndices;
 
@@ -32,7 +31,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.waitingroom_main);
         hideBars();
-        randomIndices = chooseRandomIndices(songsNumber);
+        randomIndices = chooseRandomIndices(HelperActivity.getSongsNumber());
         songsList = createSongsList(randomIndices);
         Log.d(String.valueOf(randomIndices.size()), "indices");
         Log.d(String.valueOf(songsList.size()), "songs");
@@ -62,7 +61,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
         try {
             // read the file with songs
-            InputStream inputStream = getResources().openRawResource(R.raw.songs2);
+            InputStream inputStream = getResources().openRawResource(R.raw.rock);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 

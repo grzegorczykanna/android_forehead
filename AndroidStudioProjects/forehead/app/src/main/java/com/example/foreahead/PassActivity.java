@@ -2,7 +2,6 @@ package com.example.foreahead;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.view.View;
 public class PassActivity extends AppCompatActivity {
 
     private static final int DELAY_TIME_MS = 1500; // 1.5 seconds
-    private int songsNumber = 8;
     private View decorView;
 
     @Override
@@ -21,13 +19,13 @@ public class PassActivity extends AppCompatActivity {
         setContentView(R.layout.pass_main);
         hideBars();
 
-        int songCounter = HelperActivity.getCounter();
+        int songCounter = HelperActivity.getSongCounter();
 
         // wait 1.5 seconds and back to SONG activity
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(songCounter == (songsNumber)) {
+                if(songCounter == (HelperActivity.getSongsNumber())) {
                     openResultActivity();
                 } else{ openSongActivity(); }
             }

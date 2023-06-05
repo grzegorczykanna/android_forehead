@@ -5,8 +5,8 @@ import java.util.List;
 
 public class HelperActivity {
     private static List<ListItemActivity> songsList = new ArrayList<>();
-    private static List<Integer> randomSongs = new ArrayList<>();
     private static int songCounter = 0;
+    private static int songsNumber = 10;
 
     public static List<ListItemActivity> getSongsListList() {
         return songsList;
@@ -15,19 +15,16 @@ public class HelperActivity {
         songsList = list;
     }
 
-    public static List<Integer> getRandomSongs() {
-        return randomSongs;
-    }
-    public static void setRandomSongs(List<Integer> list) {
-        randomSongs = list;
-    }
-
-    public static int getCounter() {
+    public static int getSongCounter() {
         return songCounter;
     }
-    public static void setCounter(int counter) {
+    public static void setSongCounter(int counter) {
         songCounter = counter;
     }
 
+    public static int getSongsNumber() { return songsNumber; }
+    public static void setSongsNumber(int songsNumber) {
+        HelperActivity.songsNumber = songsNumber;
+    }
 }
 
