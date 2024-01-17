@@ -26,7 +26,6 @@ public class TitleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.title_main);
 
-
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
@@ -62,7 +61,6 @@ public class TitleActivity extends AppCompatActivity {
                 }
             }
         });
-
         discoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +74,6 @@ public class TitleActivity extends AppCompatActivity {
                 }
             }
         });
-
         tvButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +87,6 @@ public class TitleActivity extends AppCompatActivity {
                 }
             }
         });
-
         oldTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +100,6 @@ public class TitleActivity extends AppCompatActivity {
                 }
             }
         });
-
         popButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
