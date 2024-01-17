@@ -36,6 +36,9 @@ public class TitleActivity extends AppCompatActivity {
         tvButton = (ImageButton) findViewById(R.id.imageButton_tv_category);
         popButton = (ImageButton) findViewById(R.id.imageButton_pop_category);
         oldTimeButton = (ImageButton) findViewById(R.id.imageButton_oldtime_category);
+
+        isResumeRock = false;
+        Log.d(String.valueOf(isResumeRock), "isResumeRock");
         //categoryCounter = HelperActivity.getCategoryCounter();
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,13 +49,17 @@ public class TitleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!isResumeRock){
                     isResumeRock = true;
-                    //HelperActivity.setIsResumeRock(isResumeRock);
+                    Log.d(String.valueOf(isResumeRock), "isResumeRock");
+
+                    HelperActivity.setIsResumeRock(isResumeRock);
                     //HelperActivity.setCategoryCounter(categoryCounter++);
                     rockButton.setImageDrawable(getResources().getDrawable(R.drawable.on_rock_button));
                 }
                 else{
                     isResumeRock = false;
-                    //HelperActivity.setIsResumeRock(isResumeRock);
+                    Log.d(String.valueOf(isResumeRock), "isResumeRock");
+
+                    HelperActivity.setIsResumeRock(isResumeRock);
                     //HelperActivity.setCategoryCounter(categoryCounter--);
                     rockButton.setImageDrawable(getResources().getDrawable(R.drawable.rock_button));
                 }

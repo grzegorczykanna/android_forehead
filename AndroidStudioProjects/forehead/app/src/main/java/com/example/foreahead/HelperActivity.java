@@ -8,9 +8,10 @@ public class HelperActivity {
     private static int songCounter = 0;
     //private static int categoryCounter = 0;
     private static int songsNumber = 3;
-    //private static boolean isResumeRock = false, isResumePOP = false;
+    private static boolean isResumeRock = false;
+//    private static boolean isResumePOP = false
 
-    public static List<ListItemActivity> getSongsListList() {
+    public static List<ListItemActivity> getSongsList() {
         return songsList;
     }
     public static void setSongsList(List<ListItemActivity> list) {
@@ -35,9 +36,9 @@ public class HelperActivity {
     public static void setSongsNumber(int songsNumber) {
         HelperActivity.songsNumber = songsNumber;
     }
-   /* public static boolean getIsResumeRock() { return isResumeRock; }
+    public static boolean getIsResumeRock() { return isResumeRock; }
     public static void setIsResumeRock(boolean isResumeRock) {HelperActivity.isResumeRock = isResumeRock; }
-    public static boolean getIsResumePOP() { return isResumePOP; }
-    public static void setIsResumePOP(boolean isResumePOP) {HelperActivity.isResumePOP = isResumePOP; }
-*/}
+//    public static boolean getIsResumePOP() { return isResumePOP; }
+//    public static void setIsResumePOP(boolean isResumePOP) {HelperActivity.isResumePOP = isResumePOP; }
+}
 

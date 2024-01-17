@@ -47,7 +47,7 @@ public class SongActivity extends Activity implements SensorEventListener {
         // get and increment counter
         actualizeSongCounter(songCounter);
         // load songs list
-        songsList = HelperActivity.getSongsListList();
+        songsList = HelperActivity.getSongsList();
         // display each element of songs list
         displaySongToGuess();
         // open PASS if rotated phone
