@@ -16,18 +16,15 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro_main);
+        hideBars();
 
-      //////////////////
-        // Hide the navigation bar
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() { openTitleActivity();}
+        }, DELAY_TIME_MS);
+    }
 
-        // Hide the action bar
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-      //////////////////
-
+    public void hideBars(){
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
@@ -36,11 +33,6 @@ public class IntroActivity extends AppCompatActivity {
                     decorView.setSystemUiVisibility(hideSystemBars());
             }
         });
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() { openTitleActivity();}
-        }, DELAY_TIME_MS);
     }
 
     @Override

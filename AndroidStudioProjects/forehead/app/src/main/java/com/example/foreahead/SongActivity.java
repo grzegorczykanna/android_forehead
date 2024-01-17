@@ -1,6 +1,5 @@
 package com.example.foreahead;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,18 +9,15 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.view.MotionEvent;
 import com.example.myapplication.R;
 import android.os.CountDownTimer;
 import android.widget.TextView;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SongActivity extends Activity implements SensorEventListener {
 
-    private View decorView;
     // to use magnetometer to detect rotation of the device
     private SensorManager sensorManager;
     private Sensor magnetometer;
@@ -34,32 +30,24 @@ public class SongActivity extends Activity implements SensorEventListener {
     // to count down 30 seconds (time for each song)
     private CountDownTimer countDownTimer;
     private TextView timerTV;
-    private int roundTime = 6000; // ms
+    private int roundTime = 30000; // ms
 
     // handle the songs list
-    private int songCounter, songsNumber = 5;
-    private List<List<String>> songsList;
-
+    private int songCounter;
+    private List<ListItemActivity> songsList;
+    private View decorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Hide the action bar
         setContentView(R.layout.song_main);
-
-        decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int visibility) {
-                if (visibility == 0)
-                    decorView.setSystemUiVisibility(hideSystemBars());
-            }
-        });
+        hideBars();
 
         // get and increment counter
         actualizeSongCounter(songCounter);
         // load songs list
-        songsList = createSongsList(songsNumber);
+        songsList = HelperActivity.getSongsListList();
         // display each element of songs list
         displaySongToGuess();
         // open PASS if rotated phone
@@ -69,8 +57,18 @@ public class SongActivity extends Activity implements SensorEventListener {
         // open FAIL after 30 seconds
         openFailIfTimesUp();
     }
-                                                        
-    
+
+    public void hideBars(){
+        decorView = getWindow().getDecorView();
+        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                if (visibility == 0)
+                    decorView.setSystemUiVisibility(hideSystemBars());
+            }
+        });
+    }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -204,41 +202,18 @@ public class SongActivity extends Activity implements SensorEventListener {
     // handle song element
     public void actualizeSongCounter(int counter){
         // get number of song
-        songCounter = HelperActivity.getCounter();
+        songCounter = HelperActivity.getSongCounter();
         // increment song counter
-        HelperActivity.setCounter(songCounter + 1);
-    }
-
-    public List<List<String>> createSongsList(int songsNumber){
-
-        // code to set chosen songs list
-        // Create an empty list of lists of strings
-        List<List<String>> songsList = new ArrayList<>();
-        songsList.add(new ArrayList<>());
-        songsList.add(new ArrayList<>());
-        songsList.add(new ArrayList<>());
-        songsList.add(new ArrayList<>());
-        songsList.add(new ArrayList<>());
-
-        // Add elements to the list, songs and bands names
-        songsList.get(0).add("song1");
-        songsList.get(0).add("author1");
-        songsList.get(1).add("song2");
-        songsList.get(1).add("author2");
-        songsList.get(2).add("song3");
-        songsList.get(2).add("author3");
-        songsList.get(3).add("song4");
-        songsList.get(3).add("author4");
-        songsList.get(4).add("song5");
-        songsList.get(4).add("author5");
-
-        return songsList;
+        HelperActivity.setSongCounter(songCounter + 1);
     }
 
     public void displaySongToGuess(){
-        // Get the next element of songs list
-        String songToGuess = songsList.get(songCounter).get(0);
-        String bandToGuess = songsList.get(songCounter).get(1);
+
+        // Get the next item of songs list
+        ListItemActivity songBandItem = songsList.get(songCounter);
+        // Get song and band separately
+        String songToGuess = songBandItem.getColumn1();
+        String bandToGuess = songBandItem.getColumn2();
 
         // display song and band name in text views
         TextView songTextView = findViewById(R.id.songTV);
