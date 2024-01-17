@@ -14,7 +14,7 @@ public class TitleActivity extends AppCompatActivity {
     private View decorView;
     ImageButton startButton, rockButton, discoButton, tvButton, popButton, oldTimeButton;
     private boolean isResumeRock, isResumeDisco, isResumeTV, isResumePOP, isResumeOld;
-    //private Integer categoryCounter = 0;
+    private Integer categoryCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,12 @@ public class TitleActivity extends AppCompatActivity {
         oldTimeButton = (ImageButton) findViewById(R.id.imageButton_oldtime_category);
 
         isResumeRock = false;
-        Log.d(String.valueOf(isResumeRock), "isResumeRock");
-        //categoryCounter = HelperActivity.getCategoryCounter();
+        isResumePOP = false;
+        isResumeDisco = false;
+        isResumeOld = false;
+        isResumeTV = false;
+        categoryCounter = 0;
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { openWaitingRoomActivity(); }
@@ -49,20 +53,21 @@ public class TitleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!isResumeRock){
                     isResumeRock = true;
-                    Log.d(String.valueOf(isResumeRock), "isResumeRock");
+                    HelperActivity.setCategoryCounter(categoryCounter++);
+                    Log.d(String.valueOf(categoryCounter), "cat count");
 
-                    HelperActivity.setIsResumeRock(isResumeRock);
-                    //HelperActivity.setCategoryCounter(categoryCounter++);
                     rockButton.setImageDrawable(getResources().getDrawable(R.drawable.on_rock_button));
                 }
                 else{
                     isResumeRock = false;
-                    Log.d(String.valueOf(isResumeRock), "isResumeRock");
+                    HelperActivity.setCategoryCounter(categoryCounter--);
+                    Log.d(String.valueOf(categoryCounter), "cat count");
 
-                    HelperActivity.setIsResumeRock(isResumeRock);
-                    //HelperActivity.setCategoryCounter(categoryCounter--);
                     rockButton.setImageDrawable(getResources().getDrawable(R.drawable.rock_button));
                 }
+
+                HelperActivity.setIsResumeRock(isResumeRock);
+
             }
         });
 
@@ -71,12 +76,17 @@ public class TitleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!isResumeDisco){
                     isResumeDisco = true;
+                    HelperActivity.setCategoryCounter(categoryCounter++);
                     discoButton.setImageDrawable(getResources().getDrawable(R.drawable.on_disco_button));
                 }
                 else{
                     isResumeDisco = false;
+                    HelperActivity.setCategoryCounter(categoryCounter--);
                     discoButton.setImageDrawable(getResources().getDrawable(R.drawable.disco_button));
                 }
+
+                HelperActivity.setIsResumeDisco(isResumeDisco);
+
             }
         });
 
@@ -85,12 +95,17 @@ public class TitleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!isResumeTV){
                     isResumeTV = true;
+                    HelperActivity.setCategoryCounter(categoryCounter++);
                     tvButton.setImageDrawable(getResources().getDrawable(R.drawable.on_tv_button));
                 }
                 else{
                     isResumeTV = false;
+                    HelperActivity.setCategoryCounter(categoryCounter--);
                     tvButton.setImageDrawable(getResources().getDrawable(R.drawable.tv_button));
                 }
+
+                HelperActivity.setIsResumeTV(isResumeTV);
+
             }
         });
 
@@ -99,12 +114,17 @@ public class TitleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!isResumeOld){
                     isResumeOld = true;
+                    HelperActivity.setCategoryCounter(categoryCounter++);
                     oldTimeButton.setImageDrawable(getResources().getDrawable(R.drawable.on_oldtime_button));
                 }
                 else{
                     isResumeOld = false;
+                    HelperActivity.setCategoryCounter(categoryCounter--);
                     oldTimeButton.setImageDrawable(getResources().getDrawable(R.drawable.oldtime_button));
                 }
+
+                HelperActivity.setIsResumeOld(isResumeOld);
+
             }
         });
 
@@ -113,16 +133,17 @@ public class TitleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!isResumePOP){
                     isResumePOP = true;
-                    //HelperActivity.setIsResumePOP(isResumePOP);
-                    //HelperActivity.setCategoryCounter(categoryCounter++);
+                    HelperActivity.setCategoryCounter(categoryCounter++);
                     popButton.setImageDrawable(getResources().getDrawable(R.drawable.on_pop_button));
                 }
                 else{
                     isResumePOP = false;
-                    //HelperActivity.setIsResumePOP(isResumePOP);
-                    //HelperActivity.setCategoryCounter(categoryCounter++);
+                    HelperActivity.setCategoryCounter(categoryCounter--);
                     popButton.setImageDrawable(getResources().getDrawable(R.drawable.pop_button));
                 }
+
+                HelperActivity.setIsResumePOP(isResumePOP);
+
             }
         });
     }

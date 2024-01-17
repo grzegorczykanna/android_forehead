@@ -25,7 +25,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
     private View decorView;
     private List<ListItemActivity> songsList;
     private Set<Integer> randomIndices;
-    private boolean isResumeRock;
+    private boolean isResumeRock, isResumePOP, isResumeOld, isResumeTV, isResumeDisco;
     private int songsFile;
     //private Integer categoryCounter, categoryIndicesNumber;
     //private List<ListItemActivity> allCategoriesList = new ArrayList<>();
@@ -37,6 +37,11 @@ public class WaitingRoomActivity extends AppCompatActivity {
         hideBars();
 
         isResumeRock = HelperActivity.getIsResumeRock();
+        isResumeDisco = HelperActivity.getIsResumeDisco();
+        isResumeOld = HelperActivity.getIsResumeOld();
+        isResumePOP = HelperActivity.getIsResumePOP();
+        isResumeTV = HelperActivity.getIsResumeTV();
+
         // count categories
         //categoryCounter = HelperActivity.getCategoryCounter();
 
@@ -81,6 +86,15 @@ public class WaitingRoomActivity extends AppCompatActivity {
         try {
             if (isResumeRock) {
                 songsFile = R.raw.rock;
+            }
+            if (isResumeTV) {
+                songsFile = R.raw.tv;
+            }
+            if (isResumeDisco) {
+                songsFile = R.raw.disco;
+            }
+            if (isResumeOld) {
+                songsFile = R.raw.old;
             }
             // read the file with songs
             InputStream inputStream = getResources().openRawResource(songsFile);
