@@ -24,11 +24,12 @@ public class WaitingRoomActivity extends AppCompatActivity {
     private TextView countdownTextView;
     private View decorView;
     private List<ListItemActivity> songsList;
+    private List<Integer> categoryList;
     private Set<Integer> randomIndices;
     private boolean isResumeRock, isResumePOP, isResumeOld, isResumeTV, isResumeDisco;
     private int songsFile;
-    //private Integer categoryCounter, categoryIndicesNumber;
-    //private List<ListItemActivity> allCategoriesList = new ArrayList<>();
+//    private Integer categoryCounter, categoryIndicesNumber;
+//    private List<ListItemActivity> allCategoriesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +43,28 @@ public class WaitingRoomActivity extends AppCompatActivity {
         isResumePOP = HelperActivity.getIsResumePOP();
         isResumeTV = HelperActivity.getIsResumeTV();
 
-        // count categories
-        //categoryCounter = HelperActivity.getCategoryCounter();
-
-        // divide all songs number to all categories
-        //categoryIndicesNumber = HelperActivity.getSongsNumber() / categoryCounter;
-        // randomizing loop, one iteration per category
-        /*for (int i = 0; i < categoryCounter; i++)
-        {
-            randomIndices = chooseRandomIndices(HelperActivity.getSongsNumber());
-            songsList = createSongsList(randomIndices);
-            allCategoriesList.addAll(songsList);
-        }*/
+//        // count categories
+        // we also need chosen category list not only number
+        // to iterate through this list when creating songs list
+        // also then we can get size of list as a category counter
+        // for now we want ten songs and two categories to be worked
+//        categoryCounter = HelperActivity.getCategoryCounter();
+//
+//        // divide all songs number to all categories
+//        categoryIndicesNumber = HelperActivity.getSongsNumber() / categoryCounter;
+//        // randomizing loop, one iteration per category
+//        for (int i = 0; i < categoryCounter; i++)
+//        {
+//            randomIndices = chooseRandomIndices(categoryIndicesNumber);
+//            songsList = createSongsList(randomIndices);
+//            allCategoriesList.addAll(songsList);
+//        }
         randomIndices = chooseRandomIndices(HelperActivity.getSongsNumber());
         songsList = createSongsList(randomIndices);
         Log.d(String.valueOf(randomIndices.size()), "indices");
         Log.d(String.valueOf(songsList.size()), "songs");
         HelperActivity.setSongsList(songsList);
+//        HelperActivity.setSongsList(allCategoriesList);
         openSongIfTimesUp();
     }
 

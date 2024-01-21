@@ -10,11 +10,16 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 
+import java.util.List;
+
 public class TitleActivity extends AppCompatActivity {
     private View decorView;
     ImageButton startButton, rockButton, discoButton, tvButton, popButton, oldTimeButton;
     private boolean isResumeRock, isResumeDisco, isResumeTV, isResumePOP, isResumeOld;
     private Integer categoryCounter;
+    private List<Integer> categoryList;
+    ListItemActivity rockCat, popCat, discoCat, tvCat, oldCat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +42,44 @@ public class TitleActivity extends AppCompatActivity {
         popButton = (ImageButton) findViewById(R.id.imageButton_pop_category);
         oldTimeButton = (ImageButton) findViewById(R.id.imageButton_oldtime_category);
 
+//        rockCat = new ListItemActivity(R.raw.rock); // [0] title, [1] band
+////        rockCat = new ListItemActivity("rock", R.raw.rock); // [0] title, [1] band
+////        rockCat = new ListItemActivity("rock", R.raw.rock); // [0] title, [1] band
+////        rockCat = new ListItemActivity("rock", R.raw.rock); // [0] title, [1] band
+////        rockCat = new ListItemActivity("rock", R.raw.rock); // [0] title, [1] band
+//
+
         isResumeRock = false;
         isResumePOP = false;
         isResumeDisco = false;
         isResumeOld = false;
         isResumeTV = false;
+
         categoryCounter = 0;
+        categoryList = HelperActivity.getCategoryList();
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { openWaitingRoomActivity(); }
+            public void onClick(View v) {
+                if(isResumeRock) {
+                    categoryList.add(R.raw.rock);
+                }
+                if(isResumeDisco) {
+                    categoryList.add(R.raw.disco);
+                }
+                if(isResumeOld) {
+                    categoryList.add(R.raw.old);
+                }
+                if(isResumeTV) {
+                    categoryList.add(R.raw.tv);
+                }
+                if(isResumePOP) {
+                    categoryList.add(R.raw.pop);
+                }
+                HelperActivity.setCategoryList(categoryList);
+                Log.d(String.valueOf(categoryList.size()), "cat list");
+                
+                openWaitingRoomActivity(); }
         });
         rockButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,13 +87,15 @@ public class TitleActivity extends AppCompatActivity {
                 if(!isResumeRock){
                     isResumeRock = true;
                     HelperActivity.setCategoryCounter(categoryCounter++);
-                    Log.d(String.valueOf(categoryCounter), "cat count");
+//                    categoryList.add(0, R.raw.rock);
+                    Log.d(String.valueOf(categoryList.size()), "cat list");
 
                     rockButton.setImageDrawable(getResources().getDrawable(R.drawable.on_rock_button));
                 }
                 else{
                     isResumeRock = false;
                     HelperActivity.setCategoryCounter(categoryCounter--);
+//                    categoryList.remove(0);
                     Log.d(String.valueOf(categoryCounter), "cat count");
 
                     rockButton.setImageDrawable(getResources().getDrawable(R.drawable.rock_button));
@@ -133,11 +168,13 @@ public class TitleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!isResumePOP){
                     isResumePOP = true;
+//                    categoryList.add(1, R.raw.pop);
                     HelperActivity.setCategoryCounter(categoryCounter++);
                     popButton.setImageDrawable(getResources().getDrawable(R.drawable.on_pop_button));
                 }
                 else{
                     isResumePOP = false;
+//                    categoryList.remove(1);
                     HelperActivity.setCategoryCounter(categoryCounter--);
                     popButton.setImageDrawable(getResources().getDrawable(R.drawable.pop_button));
                 }
