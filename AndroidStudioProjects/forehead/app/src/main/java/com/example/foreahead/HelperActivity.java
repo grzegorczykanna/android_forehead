@@ -8,7 +8,7 @@ public class HelperActivity {
     private static List<Integer> categoryList = new ArrayList<>();
     private static int songCounter = 0;
     private static int categoryCounter = 0;
-    private static int songsNumber = 2;
+    private static int songsNumber = 10;
     private static int result = 0;
     private static boolean isResumeRock = false;
     private static boolean isResumePOP = false;

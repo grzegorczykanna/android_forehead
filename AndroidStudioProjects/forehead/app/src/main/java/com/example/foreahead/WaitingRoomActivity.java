@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -64,6 +65,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
 //        randomIndices = chooseRandomIndices(HelperActivity.getSongsNumber());
 //        songsList = createSongsList(randomIndices, categoryList.get(0));
         songsList = allCategoriesList;
+        Collections.shuffle(songsList); // shuffle list items to mix categories
 //        Log.d(String.valueOf(randomIndices.size()), "indices");
 //        Log.d(String.valueOf(songsList.size()), "songs");
         HelperActivity.setSongsList(songsList);
