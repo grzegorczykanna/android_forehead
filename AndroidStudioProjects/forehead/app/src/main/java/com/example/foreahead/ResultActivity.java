@@ -17,6 +17,7 @@ import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
     private View decorView;
+    private TextView resultsPoints;
     private static List<ListItemActivity> songsList = new ArrayList<>();
     private static int songCounter = 0;
 
@@ -27,6 +28,11 @@ public class ResultActivity extends AppCompatActivity {
         hideBars();
 
         Button backToStartBtn = findViewById(R.id.backToStartBtn);
+        resultsPoints = findViewById(R.id.resultsPointsTV);
+
+//        resultsPoints.setText(HelperActivity.getResult());
+        resultsPoints.setText(String.valueOf(HelperActivity.getResult()));
+
         backToStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
