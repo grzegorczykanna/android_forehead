@@ -6,17 +6,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import android.content.Intent;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 public class PassActivity extends AppCompatActivity {
 
     private static final int DELAY_TIME_MS = 1500; // 1.5 seconds
     private View decorView;
+    private Integer result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pass_main);
+
+        result = HelperActivity.getResult();
+        result = result + 1;
+        HelperActivity.setResult(result);
+        Log.d(String.valueOf(result), "result");
+
+
         hideBars();
 
         int songCounter = HelperActivity.getSongCounter();

@@ -8,6 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.view.MotionEvent;
@@ -47,7 +48,7 @@ public class SongActivity extends Activity implements SensorEventListener {
         // get and increment counter
         actualizeSongCounter(songCounter);
         // load songs list
-        songsList = HelperActivity.getSongsListList();
+        songsList = HelperActivity.getSongsList();
         // display each element of songs list
         displaySongToGuess();
         // open PASS if rotated phone
@@ -91,6 +92,7 @@ public class SongActivity extends Activity implements SensorEventListener {
     public boolean onTouchEvent(MotionEvent event) {
         // function to detect screen touch for going to FAIL activity
         cancelOpenNewActivity = true;
+
         return super.onTouchEvent(event);
     }
 
@@ -165,12 +167,12 @@ public class SongActivity extends Activity implements SensorEventListener {
             if (currentMagnetometerValues != null) {
                 float deltaZ = currentMagnetometerValues[2];
 
-                float threshold = -35;
+                float threshold = -30;
                 // Check if the change in magnetometer values is significant
-              /*  if (deltaZ > Math.abs(threshold) || deltaZ < threshold) {
+               if (deltaZ > Math.abs(threshold) || deltaZ < threshold) {
                     cancelOpenNewActivity = true;
                     openPassActivity();
-                }*/
+                }
             }
         }
     }

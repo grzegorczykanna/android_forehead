@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -24,32 +25,53 @@ public class WaitingRoomActivity extends AppCompatActivity {
     private TextView countdownTextView;
     private View decorView;
     private List<ListItemActivity> songsList;
+    private List<Integer> categoryList;
     private Set<Integer> randomIndices;
-    //private Integer categoryCounter, categoryIndicesNumber;
-    //private List<ListItemActivity> allCategoriesList = new ArrayList<>();
+    private boolean isResumeRock, isResumePOP, isResumeOld, isResumeTV, isResumeDisco;
+    private int songsFile;
+    private Integer categoryIndicesNumber, points;
+    private List<ListItemActivity> allCategoriesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.waitingroom_main);
         hideBars();
+
+        points = HelperActivity.getResult();
+
+        isResumeRock = HelperActivity.getIsResumeRock();
+        isResumeDisco = HelperActivity.getIsResumeDisco();
+        isResumeOld = HelperActivity.getIsResumeOld();
+        isResumePOP = HelperActivity.getIsResumePOP();
+        isResumeTV = HelperActivity.getIsResumeTV();
+
+        categoryList = HelperActivity.getCategoryList();
+
         // count categories
-        //categoryCounter = HelperActivity.getCategoryCounter();
+        // we also need chosen category list not only number
+        // to iterate through this list when creating songs list
+        // also then we can get size of list as a category counter
+        // for now we want ten songs and two categories to be worked
 
         // divide all songs number to all categories
-        //categoryIndicesNumber = HelperActivity.getSongsNumber() / categoryCounter;
+        categoryIndicesNumber = HelperActivity.getSongsNumber() / categoryList.size();
         // randomizing loop, one iteration per category
-        /*for (int i = 0; i < categoryCounter; i++)
+        for (int i = 0; i < categoryList.size(); i++)
         {
-            randomIndices = chooseRandomIndices(HelperActivity.getSongsNumber());
-            songsList = createSongsList(randomIndices);
+            Log.d(String.valueOf(categoryList.get(0)), "category");
+            randomIndices = chooseRandomIndices(categoryIndicesNumber); // indices must be in range (0-songsfile.size())
+            songsList = createSongsList(randomIndices, categoryList.get(i));
             allCategoriesList.addAll(songsList);
-        }*/
-        randomIndices = chooseRandomIndices(HelperActivity.getSongsNumber());
-        songsList = createSongsList(randomIndices);
-        Log.d(String.valueOf(randomIndices.size()), "indices");
-        Log.d(String.valueOf(songsList.size()), "songs");
+        }
+//        randomIndices = chooseRandomIndices(HelperActivity.getSongsNumber());
+//        songsList = createSongsList(randomIndices, categoryList.get(0));
+        songsList = allCategoriesList;
+        Collections.shuffle(songsList); // shuffle list items to mix categories
+//        Log.d(String.valueOf(randomIndices.size()), "indices");
+//        Log.d(String.valueOf(songsList.size()), "songs");
         HelperActivity.setSongsList(songsList);
+//        HelperActivity.setSongsList(allCategoriesList);
         openSongIfTimesUp();
     }
 
@@ -68,14 +90,29 @@ public class WaitingRoomActivity extends AppCompatActivity {
         }
         return randomIndices;
     }
-    public List<ListItemActivity> createSongsList(Set<Integer> randomIndices){
+    public List<ListItemActivity> createSongsList(Set<Integer> randomIndices, Integer songsFile){
 
         int rowCounter = 0; // needed to choose random titles
         List<ListItemActivity> songsList = new ArrayList<>();
+//        songsFile = R.raw.pop;
 
         try {
+//            if (isResumeRock) {
+//                songsFile = R.raw.rock;
+//                Log.d(String.valueOf(songsFile), "songsfile");
+//
+//            }
+//            if (isResumeTV) {
+//                songsFile = R.raw.tv;
+//            }
+//            if (isResumeDisco) {
+//                songsFile = R.raw.disco;
+//            }
+//            if (isResumeOld) {
+//                songsFile = R.raw.old;
+//            }
             // read the file with songs
-            InputStream inputStream = getResources().openRawResource(R.raw.rock);
+            InputStream inputStream = getResources().openRawResource(songsFile);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 

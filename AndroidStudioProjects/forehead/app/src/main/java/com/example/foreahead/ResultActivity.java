@@ -3,6 +3,7 @@ package com.example.foreahead;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,8 +18,11 @@ import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
     private View decorView;
+    private TextView resultsPoints;
     private static List<ListItemActivity> songsList = new ArrayList<>();
+    private static List<Integer> categoryList;
     private static int songCounter = 0;
+    private Integer points;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +31,22 @@ public class ResultActivity extends AppCompatActivity {
         hideBars();
 
         Button backToStartBtn = findViewById(R.id.backToStartBtn);
+        points = HelperActivity.getResult();
+
+        resultsPoints = findViewById(R.id.resultsPointsTV);
+        resultsPoints.setText(String.valueOf(points));
+
+        points = 0;
+        categoryList = new ArrayList<>();
+
         backToStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // to avoid crush
                 HelperActivity.setSongsList(songsList);
                 HelperActivity.setSongCounter(songCounter);
+                HelperActivity.setResult(points);
+                HelperActivity.setCategoryList(categoryList);
 
                 openTitleActivity();
             }
