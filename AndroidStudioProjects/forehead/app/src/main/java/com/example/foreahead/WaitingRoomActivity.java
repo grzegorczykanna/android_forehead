@@ -26,10 +26,11 @@ public class WaitingRoomActivity extends AppCompatActivity {
     private View decorView;
     private List<ListItemActivity> songsList;
     private List<Integer> categoryList;
+
     private Set<Integer> randomIndices;
     private boolean isResumeRock, isResumePOP, isResumeOld, isResumeTV, isResumeDisco;
     private int songsFile;
-    private Integer categoryIndicesNumber;
+    private Integer categoryIndicesNumber, LEFTOVER;
     private List<ListItemActivity> allCategoriesList = new ArrayList<>();
 
     @Override
@@ -47,23 +48,35 @@ public class WaitingRoomActivity extends AppCompatActivity {
         categoryList = HelperActivity.getCategoryList();
 
         // count categories
-        // we also need chosen category list not only number
-        // to iterate through this list when creating songs list
-        // also then we can get size of list as a category counter
-        // for now we want ten songs and two categories to be worked
 
         // divide all songs number to all categories
         categoryIndicesNumber = HelperActivity.getSongsNumber() / categoryList.size();
+        LEFTOVER = HelperActivity.getSongsNumber() % categoryList.size();
+        Log.d(String.valueOf(LEFTOVER), "leftover");
+
+        // Initialize an ArrayList of integers with the specified size
+        ArrayList<Integer> indicesNumberList = new ArrayList<>(categoryList.size());
+        // Ensure capacity of the ArrayList
+        indicesNumberList.ensureCapacity(categoryList.size());
+        // Now you can add elements to the list as needed
+        for (int i = 0; i < categoryList.size(); i++) {
+            indicesNumberList.add(categoryIndicesNumber);
+        }
+
+        // Distribute leftover items
+        for (int i = 0; i < LEFTOVER; i++) {
+            indicesNumberList.set(i, indicesNumberList.get(i) + 1);
+        }
+
+
+
         // randomizing loop, one iteration per category
         for (int i = 0; i < categoryList.size(); i++)
         {
-            Log.d(String.valueOf(categoryList.get(0)), "category");
-            randomIndices = chooseRandomIndices(categoryIndicesNumber); // indices must be in range (0-songsfile.size())
+            randomIndices = chooseRandomIndices(indicesNumberList.get(i)); // indices must be in range (0-songsfile.size())
             songsList = createSongsList(randomIndices, categoryList.get(i));
             allCategoriesList.addAll(songsList);
         }
-//        randomIndices = chooseRandomIndices(HelperActivity.getSongsNumber());
-//        songsList = createSongsList(randomIndices, categoryList.get(0));
         songsList = allCategoriesList;
         Collections.shuffle(songsList); // shuffle list items to mix categories
         HelperActivity.setSongsList(songsList);

@@ -166,7 +166,7 @@ public class SongActivity extends Activity implements SensorEventListener {
             if (currentMagnetometerValues != null) {
                 float deltaZ = currentMagnetometerValues[2];
 
-                float threshold = -30;
+                float threshold = -35;
                 // Check if the change in magnetometer values is significant
                if (deltaZ > Math.abs(threshold) || deltaZ < threshold) {
                     cancelOpenNewActivity = true;

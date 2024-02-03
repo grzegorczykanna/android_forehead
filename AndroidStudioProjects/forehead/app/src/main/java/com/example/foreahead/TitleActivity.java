@@ -16,6 +16,8 @@ public class TitleActivity extends AppCompatActivity {
     private boolean isResumeRock, isResumeDisco, isResumeTV, isResumePOP, isResumeOld;
     private Integer categoryCounter;
     private List<Integer> categoryList;
+//    private List<ListItemActivity> catListTEST;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class TitleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isResumeRock) {
                     categoryList.add(R.raw.rock);
+
                 }
                 if(isResumeDisco) {
                     categoryList.add(R.raw.disco);
@@ -65,9 +68,18 @@ public class TitleActivity extends AppCompatActivity {
                 if(isResumePOP) {
                     categoryList.add(R.raw.pop);
                 }
+
+                if(categoryList.size() == 0) {
+                    categoryList.add(R.raw.rock);
+                    categoryList.add(R.raw.disco);
+                    categoryList.add(R.raw.old);
+                    categoryList.add(R.raw.tv);
+                    categoryList.add(R.raw.pop);
+                }
+
                 HelperActivity.setCategoryList(categoryList);
                 Log.d(String.valueOf(categoryList.size()), "category list size when play");
-                
+
                 openWaitingRoomActivity(); }
         });
         rockButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +89,7 @@ public class TitleActivity extends AppCompatActivity {
                     isResumeRock = true;
                     HelperActivity.setCategoryCounter(categoryCounter++);
                     Log.d(String.valueOf(categoryCounter), "category counter");
+//                    Log.d(String.valueOf(catListTEST.size()), "category list size when play");
                     rockButton.setImageDrawable(getResources().getDrawable(R.drawable.on_rock_button));
                 }
                 else{
