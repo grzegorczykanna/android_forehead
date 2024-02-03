@@ -105,7 +105,6 @@ public class TitleActivity extends AppCompatActivity {
 
             }
         });
-
         discoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +123,6 @@ public class TitleActivity extends AppCompatActivity {
 
             }
         });
-
         tvButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +141,6 @@ public class TitleActivity extends AppCompatActivity {
 
             }
         });
-
         oldTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,7 +159,6 @@ public class TitleActivity extends AppCompatActivity {
 
             }
         });
-
         popButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
