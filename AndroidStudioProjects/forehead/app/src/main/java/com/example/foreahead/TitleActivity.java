@@ -77,7 +77,7 @@ public class TitleActivity extends AppCompatActivity {
                     categoryList.add(R.raw.pop);
                 }
                 HelperActivity.setCategoryList(categoryList);
-                Log.d(String.valueOf(categoryList.size()), "cat list");
+                Log.d(String.valueOf(categoryList.size()), "category list size when play");
                 
                 openWaitingRoomActivity(); }
         });
@@ -88,7 +88,7 @@ public class TitleActivity extends AppCompatActivity {
                     isResumeRock = true;
                     HelperActivity.setCategoryCounter(categoryCounter++);
 //                    categoryList.add(0, R.raw.rock);
-                    Log.d(String.valueOf(categoryList.size()), "cat list");
+                    Log.d(String.valueOf(categoryCounter), "category counter");
 
                     rockButton.setImageDrawable(getResources().getDrawable(R.drawable.on_rock_button));
                 }

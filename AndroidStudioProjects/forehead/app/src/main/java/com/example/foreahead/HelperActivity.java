@@ -8,13 +8,14 @@ public class HelperActivity {
     private static List<Integer> categoryList = new ArrayList<>();
     private static int songCounter = 0;
     private static int categoryCounter = 0;
-    private static int songsNumber = 10;
+    private static int songsNumber = 3;
     private static int result = 0;
     private static boolean isResumeRock = false;
     private static boolean isResumePOP = false;
     private static boolean isResumeDisco = false;
     private static boolean isResumeOld = false;
     private static boolean isResumeTV = false;
+    private static boolean pointFlag = false;
 
 
     public static List<ListItemActivity> getSongsList() {
@@ -50,7 +51,7 @@ public class HelperActivity {
     public static int getResult() {
         return result;
     }
-    public static void setResult(int counter) {result = result; }
+    public static void setResult(int points_result) {result = points_result; }
 
     public static boolean getIsResumeRock() { return isResumeRock; }
     public static void setIsResumeRock(boolean isResumeRock) {HelperActivity.isResumeRock = isResumeRock; }
@@ -62,5 +63,8 @@ public class HelperActivity {
     public static void setIsResumeOld(boolean isResumeOld) {HelperActivity.isResumeOld = isResumeOld; }
     public static boolean getIsResumeTV() { return isResumeTV; }
     public static void setIsResumeTV(boolean isResumeTV) {HelperActivity.isResumeTV = isResumeTV; }
+
+    public static boolean getPointFlag() { return pointFlag; }
+    public static void setPointFlag(boolean pointFlag) {HelperActivity.pointFlag = pointFlag; }
 }
 

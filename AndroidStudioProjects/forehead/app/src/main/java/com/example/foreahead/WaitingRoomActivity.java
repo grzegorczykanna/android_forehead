@@ -29,7 +29,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
     private Set<Integer> randomIndices;
     private boolean isResumeRock, isResumePOP, isResumeOld, isResumeTV, isResumeDisco;
     private int songsFile;
-    private Integer categoryIndicesNumber;
+    private Integer categoryIndicesNumber, points;
     private List<ListItemActivity> allCategoriesList = new ArrayList<>();
 
     @Override
@@ -37,6 +37,8 @@ public class WaitingRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.waitingroom_main);
         hideBars();
+
+        points = HelperActivity.getResult();
 
         isResumeRock = HelperActivity.getIsResumeRock();
         isResumeDisco = HelperActivity.getIsResumeDisco();

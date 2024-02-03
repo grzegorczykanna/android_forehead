@@ -22,19 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.900" />
 
-    <TextView
-        android:id="@+id/timerTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="30 s"
-        android:textColor="@color/black"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.700" />
+
 
     <LinearLayout
         android:id="@+id/linear_layout"
@@ -44,16 +32,26 @@
         android:orientation="horizontal"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="136dp">
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="291dp">
+
+        <TextView
+            android:id="@+id/timerTV"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="200dp"
+            android:layout_marginLeft="100dp"
+            android:text="30 s"
+            android:textColor="@color/black"
+            android:textSize="30dp"/>
 
         <TextView
             android:id="@+id/songTV"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="MOGŁO BYĆ NIC"
             android:textColor="@color/black"
-            android:textSize="80dp" />
+            android:textSize="50dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
