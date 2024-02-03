@@ -63,8 +63,5 @@ public class HelperActivity {
     public static void setIsResumeOld(boolean isResumeOld) {HelperActivity.isResumeOld = isResumeOld; }
     public static boolean getIsResumeTV() { return isResumeTV; }
     public static void setIsResumeTV(boolean isResumeTV) {HelperActivity.isResumeTV = isResumeTV; }
-
-    public static boolean getPointFlag() { return pointFlag; }
-    public static void setPointFlag(boolean pointFlag) {HelperActivity.pointFlag = pointFlag; }
 }
 

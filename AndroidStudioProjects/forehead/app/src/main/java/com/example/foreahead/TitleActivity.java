@@ -2,11 +2,9 @@ package com.example.foreahead;
 
 import  android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 
@@ -18,8 +16,6 @@ public class TitleActivity extends AppCompatActivity {
     private boolean isResumeRock, isResumeDisco, isResumeTV, isResumePOP, isResumeOld;
     private Integer categoryCounter;
     private List<Integer> categoryList;
-    ListItemActivity rockCat, popCat, discoCat, tvCat, oldCat;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +37,6 @@ public class TitleActivity extends AppCompatActivity {
         tvButton = (ImageButton) findViewById(R.id.imageButton_tv_category);
         popButton = (ImageButton) findViewById(R.id.imageButton_pop_category);
         oldTimeButton = (ImageButton) findViewById(R.id.imageButton_oldtime_category);
-
-//        rockCat = new ListItemActivity(R.raw.rock); // [0] title, [1] band
-////        rockCat = new ListItemActivity("rock", R.raw.rock); // [0] title, [1] band
-////        rockCat = new ListItemActivity("rock", R.raw.rock); // [0] title, [1] band
-////        rockCat = new ListItemActivity("rock", R.raw.rock); // [0] title, [1] band
-////        rockCat = new ListItemActivity("rock", R.raw.rock); // [0] title, [1] band
-//
 
         isResumeRock = false;
         isResumePOP = false;
@@ -87,17 +76,13 @@ public class TitleActivity extends AppCompatActivity {
                 if(!isResumeRock){
                     isResumeRock = true;
                     HelperActivity.setCategoryCounter(categoryCounter++);
-//                    categoryList.add(0, R.raw.rock);
                     Log.d(String.valueOf(categoryCounter), "category counter");
-
                     rockButton.setImageDrawable(getResources().getDrawable(R.drawable.on_rock_button));
                 }
                 else{
                     isResumeRock = false;
                     HelperActivity.setCategoryCounter(categoryCounter--);
-//                    categoryList.remove(0);
                     Log.d(String.valueOf(categoryCounter), "cat count");
-
                     rockButton.setImageDrawable(getResources().getDrawable(R.drawable.rock_button));
                 }
 

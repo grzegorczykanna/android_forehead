@@ -1,7 +1,6 @@
 package com.example.foreahead;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import android.content.Intent;
@@ -23,8 +22,6 @@ public class PassActivity extends AppCompatActivity {
         result = HelperActivity.getResult();
         result = result + 1;
         HelperActivity.setResult(result);
-        Log.d(String.valueOf(result), "result");
-
 
         hideBars();
 

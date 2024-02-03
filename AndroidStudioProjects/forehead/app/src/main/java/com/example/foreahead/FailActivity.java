@@ -11,7 +11,6 @@ import com.example.myapplication.R;
 public class FailActivity extends AppCompatActivity {
 
     private static final int DELAY_TIME_MS = 1500; // 1.5 seconds
-    // set number of songs per round
     private View decorView;
 
     @Override

@@ -29,7 +29,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
     private Set<Integer> randomIndices;
     private boolean isResumeRock, isResumePOP, isResumeOld, isResumeTV, isResumeDisco;
     private int songsFile;
-    private Integer categoryIndicesNumber, points;
+    private Integer categoryIndicesNumber;
     private List<ListItemActivity> allCategoriesList = new ArrayList<>();
 
     @Override
@@ -37,8 +37,6 @@ public class WaitingRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.waitingroom_main);
         hideBars();
-
-        points = HelperActivity.getResult();
 
         isResumeRock = HelperActivity.getIsResumeRock();
         isResumeDisco = HelperActivity.getIsResumeDisco();
@@ -68,10 +66,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
 //        songsList = createSongsList(randomIndices, categoryList.get(0));
         songsList = allCategoriesList;
         Collections.shuffle(songsList); // shuffle list items to mix categories
-//        Log.d(String.valueOf(randomIndices.size()), "indices");
-//        Log.d(String.valueOf(songsList.size()), "songs");
         HelperActivity.setSongsList(songsList);
-//        HelperActivity.setSongsList(allCategoriesList);
         openSongIfTimesUp();
     }
 
@@ -94,23 +89,8 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
         int rowCounter = 0; // needed to choose random titles
         List<ListItemActivity> songsList = new ArrayList<>();
-//        songsFile = R.raw.pop;
 
         try {
-//            if (isResumeRock) {
-//                songsFile = R.raw.rock;
-//                Log.d(String.valueOf(songsFile), "songsfile");
-//
-//            }
-//            if (isResumeTV) {
-//                songsFile = R.raw.tv;
-//            }
-//            if (isResumeDisco) {
-//                songsFile = R.raw.disco;
-//            }
-//            if (isResumeOld) {
-//                songsFile = R.raw.old;
-//            }
             // read the file with songs
             InputStream inputStream = getResources().openRawResource(songsFile);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
