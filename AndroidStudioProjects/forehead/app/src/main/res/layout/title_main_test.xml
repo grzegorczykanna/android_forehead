@@ -1,0 +1,85 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.MyApplication"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:fillViewport="true"
+    tools:layout_editor_absoluteX="1050dp"
+    tools:layout_editor_absoluteY="1050dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_background">
+
+        <!-- Start Category Button -->
+
+        <!-- Rock Category Button -->
+
+        <ImageButton
+            android:id="@+id/imageButton_start_category"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="500dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/start_button" />
+
+        <!-- Disco Category Button -->
+        <ImageButton
+            android:id="@+id/imageButton_rock_category"
+            android:layout_width="match_parent"
+            android:layout_height="500px"
+            android:layout_below="@id/imageButton_start_category"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/rock_button" />
+
+        <ImageButton
+            android:id="@+id/imageButton_disco_category"
+            android:layout_width="match_parent"
+            android:layout_height="500px"
+            android:layout_below="@id/imageButton_rock_category"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/disco_button" />
+
+        <!-- TV Category Button -->
+        <ImageButton
+            android:id="@+id/imageButton_tv_category"
+            android:layout_width="match_parent"
+            android:layout_height="500px"
+            android:layout_below="@id/imageButton_disco_category"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/tv_button" />
+
+        <!-- Oldtime Category Button -->
+        <ImageButton
+            android:id="@+id/imageButton_oldtime_category"
+            android:layout_width="match_parent"
+            android:layout_height="500px"
+            android:layout_below="@id/imageButton_tv_category"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/oldtime_button" />
+
+        <!-- Pop Category Button -->
+        <ImageButton
+            android:id="@+id/imageButton_pop_category"
+            android:layout_width="match_parent"
+            android:layout_height="500px"
+            android:layout_below="@id/imageButton_oldtime_category"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pop_button" />
+
+    </RelativeLayout>
+</ScrollView>
